@@ -311,11 +311,9 @@ class InterviewReadyNavigator:
         general_cfg = self.config.general
 
         # Step 1: Google Australia - safe config access
-        print("   Step 1: Starting with Google Australia...")
-        entry_point = random.choice(session_cfg.entry_points)
-
+        print("   Step 1: Starting with Duckduckgo...")
         await self.page.goto(
-            entry_point,
+            session_cfg.entry_point,
             timeout=self.config.browser.default_timeout
         )
 
@@ -350,11 +348,8 @@ class InterviewReadyNavigator:
 
         # Step 4: Search for hardware
         print("   Step 4: Searching for hardware stores...")
-        google_url = next(
-            (url for url in session_cfg.entry_points if 'google' in url),
-            session_cfg.entry_points[0]
-        )
-        await self.page.goto(google_url, timeout=self.config.browser.default_timeout)
+        duckduckgo_url = session_cfg.entry_point
+        await self.page.goto(duckduckgo_url, timeout=self.config.browser.default_timeout)
 
         hardware_term = random.choice(session_cfg.search_terms.hardware_related)
         await self._demo_realistic_search(hardware_term)

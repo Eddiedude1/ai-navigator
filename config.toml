@@ -91,11 +91,7 @@ user_behavior_simulation = "advanced"
 
 # Session building configuration
 [session_building]
-entry_points = [
-    "https://www.google.com.au",
-    "https://www.bing.com",
-    "https://www.duckduckgo.com"
-]
+entry_point = "https://www.duckduckgo.com"
 
 credibility_sites = [
     "https://www.bom.gov.au",
@@ -117,7 +113,7 @@ unrelated = [
 ]
 hardware_related = [
     "home improvement sydney", 
-    "hardware store near me", 
+    "hardware store melbourne", 
     "bunnings warehouse"
 ]
 specific = [
