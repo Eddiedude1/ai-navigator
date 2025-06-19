@@ -1,0 +1,10 @@
+browser_profile
+*.png
+*.log
+*.json
+stash
+__pycache__
+tags
+*assignment*
+py-*
+.env

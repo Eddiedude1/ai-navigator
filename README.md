@@ -1,6 +1,40 @@
 # AI Navigator
 An AI-First navigator for the site [bunnings.com](https://www.bunnings.com.au) the will find your item of interest and proceed to checkout.
-> Note:  Must set config.toml to `headless = false` in order to manually resolve the bot challenges
+
+> Some packages are intentionally downgraded due to the old Mac OS virsion used to develope this project. 
+**Macbook Specs:**  
+```
+Software:
+
+    System Software Overview:
+
+      System Version: macOS 10.14.6 (18G9323)
+      Kernel Version: Darwin 18.7.0
+      Boot Volume: Macintosh HD
+      Boot Mode: Normal
+      Computer Name: Guillermo_MBP
+      User Name: Guillermo Gonzalez (guillermogonzalez)
+      Secure Virtual Memory: Enabled
+      System Integrity Protection: Enabled
+      Time since boot: 14:05
+```
+
+## Project Structure
+```
+.
+├── README.md
+├── bunnings ................... Source Code
+│   ├── config.py
+│   └── navigator.py
+├── config.toml ................. Application configuration
+├── linting
+│   ├── pep.sh .................. Flake8 pep8 report in stdout
+│   ├── remove_whitespaces.sh ... Remove unwanted code whitespaces
+│   └── todo.sh ................. Review all code todos
+├── navigate_to_checkout.py ..... Navigator Execution Script
+├── requirements.txt ............ Requirements.txt for easy environment replication
+└── setup.sh .................... Optional virtual environment setup script 
+```
 
 ## Navigator Execution Report
 ```

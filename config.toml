@@ -1,0 +1,523 @@
+# Enhanced AI Navigator Configuration for 2025
+# Fully compatible with Production-Ready Navigator code
+# All parameters externalized - no hardcoded values in code
+
+[general]
+name = "AI Navigator 2025"
+version = "3.0.0"
+start_url = "https://www.bunnings.com.au"
+max_navigation_steps = 25
+goal = "Find a cordless drill and add it to the cart"
+
+[logging]
+filename = "navigator_app.log"
+format = "%(asctime)s - %(levelname)s - %(message)s"
+date_format = "%Y-%m-%d %H:%M:%S"
+log_level = "INFO"
+
+# Interview demonstration settings
+[interview_mode]
+enabled = false
+demo_timeout = 300
+screenshot_frequency = 120
+progress_reporting = "verbose"
+fallback_to_simulation = true
+max_demo_duration = 1800
+
+[interview_mode.phase_timeouts]
+configuration = 30
+browser_setup = 120
+bypass_strategies = 900
+ai_navigation = 300
+results_analysis = 60
+
+# File and directory settings
+[files]
+log_filename = "interview_session.log"
+summary_filename = "interview_session_summary.json"
+screenshot_prefix = "demo_"
+screenshot_format = "png"
+
+# Alternative target sites for fallback
+[fallback_sites]
+primary_alternatives = [
+    "https://www.mitre10.com.au",
+    "https://www.supercheapauto.com.au",
+    "https://www.kmart.com.au"
+]
+
+# Enhanced bypass configuration
+[bypass_2025]
+max_attempts = 6
+wait_between_attempts_min = 120
+wait_between_attempts_max = 240
+session_building_timeout = 900
+intelligence_level = "advanced"
+check_interval = 15
+max_wait_time = 600
+
+# Bypass strategy configuration
+[bypass_2025.strategies]
+names = [
+    "Gradual Session Building",
+    "Multi-Site Credibility", 
+    "Direct with Patience"
+]
+timeout_per_strategy = 300
+
+# Enhanced stealth configuration
+[bypass_2025.stealth]
+canvas_fingerprint_randomization = true
+webgl_fingerprint_spoofing = true
+audio_context_noise = true
+timezone_randomization = false
+language_consistency = true
+hardware_spoofing = true
+
+# Advanced timing patterns
+[bypass_2025.timing]
+mouse_movement_variance = 0.15
+typing_speed_variance = 0.25
+scroll_frequency_natural = true
+reading_pause_simulation = true
+impatience_progression = true
+
+# Session building strategies
+[bypass_2025.session_building]
+google_entry_required = true
+credibility_sites_count = 2
+search_progression = ["weather", "news", "hardware", "bunnings"]
+user_behavior_simulation = "advanced"
+
+# Session building configuration
+[session_building]
+entry_points = [
+    "https://www.google.com.au",
+    "https://www.bing.com",
+    "https://www.duckduckgo.com"
+]
+
+credibility_sites = [
+    "https://www.bom.gov.au",
+    "https://www.abc.net.au",
+    "https://www.australia.gov.au"
+]
+
+competitor_sites = [
+    "https://www.mitre10.com.au",
+    "https://www.supercheapauto.com.au"
+]
+
+[session_building.search_terms]
+unrelated = [
+    "weather sydney", 
+    "news australia", 
+    "melbourne coffee shops",
+    "australian government services"
+]
+hardware_related = [
+    "home improvement sydney", 
+    "hardware store near me", 
+    "bunnings warehouse"
+]
+specific = [
+    "bunnings cordless drill"
+]
+
+# Browser fingerprint evasion
+[browser_2025]
+headless = false
+slow_mo_min = 50
+slow_mo_max = 200
+viewport_randomization = true
+user_agent_rotation = true
+permissions_spoofing = true
+default_timeout = 120000
+
+[browser_2025.viewport]
+width_min = 1366
+width_max = 1920
+height_min = 768
+height_max = 1080
+
+[browser_2025.args]
+core_stealth = [
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-blink-features=AutomationControlled",
+    "--exclude-switches=enable-automation",
+    "--disable-extensions",
+    "--no-first-run",
+    "--disable-default-apps"
+]
+
+advanced_stealth = [
+    "--disable-component-extensions-with-background-pages",
+    "--disable-background-networking",
+    "--disable-sync",
+    "--disable-translate",
+    "--disable-features=TranslateUI,VizDisplayCompositor",
+    "--disable-ipc-flooding-protection",
+    "--disable-renderer-backgrounding",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-background-timer-throttling"
+]
+
+fingerprint_evasion = [
+    "--disable-web-security",
+    "--allow-running-insecure-content",
+    "--disable-client-side-phishing-detection",
+    "--disable-component-update",
+    "--disable-popup-blocking",
+    "--disable-hang-monitor",
+    "--disable-prompt-on-repost",
+    "--disable-domain-reliability"
+]
+
+performance_optimization = [
+    "--disable-background-mode",
+    "--disable-plugins-discovery", 
+    "--disable-prerender-local-predictor",
+    "--metrics-recording-only",
+    "--no-report-upload"
+]
+
+# Enhanced user agent pool
+[browser_2025.user_agents]
+chrome_versions = [119, 120, 121, 122, 123]
+os_combinations = [
+    "Windows NT 10.0; Win64; x64",
+    "Macintosh; Intel Mac OS X 10_15_7",
+    "X11; Linux x86_64"
+]
+template = "Mozilla/5.0 ({os}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{version}.0.0.0 Safari/537.36"
+
+# HTTP headers configuration
+[browser_2025.headers]
+accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+accept_language = "en-AU,en;q=0.9,en-US;q=0.8"
+accept_encoding = "gzip, deflate, br"
+cache_control = "max-age=0"
+upgrade_insecure_requests = "1"
+sec_fetch_dest = "document"
+sec_fetch_mode = "navigate"
+sec_fetch_site = "none"
+sec_fetch_user = "?1"
+
+# Geolocation settings
+[browser_2025.geolocation]
+latitude_base = -33.8688
+longitude_base = 151.2093
+variance = 0.05
+
+# Cloudflare detection patterns (2025 updated)
+[cloudflare_detection_2025]
+challenge_indicators = [
+    "just a moment",
+    "checking your browser", 
+    "verify you are human",
+    "verifying you are human",
+    "browser verification",
+    "cloudflare",
+    "ddos protection",
+    "security check",
+    "please wait while we verify"
+]
+
+challenge_selectors = [
+    'input[type="checkbox"][name*="cf"]',
+    '.cf-challenge-form',
+    '.cf-browser-verification', 
+    '#cf-wrapper',
+    '[data-ray]',
+    'form[action*="cloudflare"]',
+    '.challenge-form',
+    '#challenge-form',
+    '.cf-turnstile'
+]
+
+success_indicators = [
+    'nav', 'header', 'footer',
+    '.navigation', '.menu', '.header',
+    'input[type="search"]', '.search',
+    '.logo', '#logo',
+    '.product', '.category'
+]
+
+# Progressive patience levels for waiting
+[cloudflare_detection_2025.patience_levels]
+level_0 = { duration = 60, behavior = "minimal", mouse_movement = 0.1 }
+level_1 = { duration = 120, behavior = "reading", scroll_probability = 0.2 }
+level_2 = { duration = 180, behavior = "mild_impatience", interaction_increase = 0.3 }
+level_3 = { duration = 300, behavior = "moderate_activity", refresh_probability = 0.1 }
+level_4 = { duration = 600, behavior = "frustrated_waiting", keyboard_usage = 0.2 }
+
+# Human behavior simulation patterns
+[human_behavior_2025]
+mouse_movement_patterns = "bezier_curves"
+typing_rhythm_variation = true
+reading_pause_distribution = "gaussian"
+scroll_momentum_simulation = true
+focus_behavior_tracking = true
+
+[human_behavior_2025.mouse]
+micro_movements = true
+drift_simulation = true
+acceleration_curves = "human_like"
+click_precision_variance = 0.15
+steps_min = 5
+steps_max = 15
+curve_variance = 20
+micro_adjustment_range = 2
+
+[human_behavior_2025.timing]
+action_clustering = true
+inter_cluster_gaps = [2.0, 8.0]
+thinking_pauses = [0.3, 2.5]
+
+# Human behavior delays
+[human_behavior_2025.delays]
+demo_behavior_min = 2
+demo_behavior_max = 5
+realistic_search_delay = 1
+search_results_interaction_min = 2
+search_results_interaction_max = 4
+
+# Action delays for human simulation
+[human_behavior_2025.action_delays]
+thinking_min = 0.5
+thinking_max = 2.0
+click_prepare_min = 0.1
+click_prepare_max = 0.5
+post_click_min = 0.5
+post_click_max = 2.0
+
+# Search functionality configuration
+[search_functionality]
+selectors = [
+    'input[name="q"]',
+    'input[type="search"]',
+    'input[placeholder*="search"]',
+    '#search-input'
+]
+timeout = 10000
+typing_delay = 150
+submit_delay = 1000
+results_wait = 2000
+
+# Element interaction settings
+[element_interaction]
+bunnings_link_selector = 'a[href*="bunnings.com.au"]'
+bunnings_link_timeout = 15000
+click_box_variance = 0.4
+click_box_offset = 0.3
+
+# Cookie acceptance selectors
+[cookie_selectors]
+buttons = [
+    'button:has-text("Accept")',
+    'button:has-text("I agree")',
+    'button:has-text("OK")',
+    '#L2AGLb'
+]
+timeout = 3000
+
+# AI configuration with enhanced models
+[ai_2025]
+model = "claude-3-5-sonnet-20241022" 
+backup_model = "claude-3-haiku-20240307"
+vision_analysis_enabled = true
+context_awareness = "advanced"
+max_tokens_default = 1000
+
+[ai_2025.token_limits]
+page_analysis = 4000
+decision_making = 2000  
+goal_completion = 600
+error_recovery = 1000
+intent_parsing = 2500
+strategy_planning = 2000
+summary_generation = 1500
+search_term_extraction = 400
+cloudflare_detection = 1000
+
+# Enhanced prompts for 2025
+[prompts_2025]
+
+[prompts_2025.cloudflare_detection]
+system = "You are an expert at detecting Cloudflare challenges and website security measures. Be precise in identifying challenge pages vs normal website content."
+template = """
+Analyze this webpage for Cloudflare challenges:
+
+URL: {url}
+Title: {title}
+Page Content Sample: {content_sample}
+
+CRITICAL: Look for these 2025 Cloudflare indicators:
+- Title containing "Just a moment", "Checking your browser", "Verify you are human"
+- Content mentioning Cloudflare, DDoS protection, browser verification
+- Challenge forms, Ray IDs, or verification elements
+- Turnstile widgets or hCAPTCHA elements
+
+Respond with ONLY valid JSON:
+{{
+    "is_cloudflare_challenge": true/false,
+    "challenge_type": "turnstile|hcaptcha|js_challenge|browser_check|none",
+    "confidence": 0.95,
+    "indicators_found": ["list", "of", "indicators"],
+    "website_elements_present": true/false,
+    "recommendation": "wait|interact|bypass_failed"
+}}
+"""
+
+[prompts_2025.intelligent_navigation]
+system = "You are an expert e-commerce navigator. Focus on efficient, goal-oriented navigation while maintaining human-like behavior."
+template = """
+Navigate towards this goal: {goal}
+
+Current Page Analysis:
+- Page Type: {page_type}
+- URL: {current_url}
+- Key Elements: {elements}
+- Navigation History: {history}
+
+User Context:
+- Australian user looking for hardware/tools
+- Prefers efficient but natural browsing
+- Familiar with Bunnings website layout
+
+Choose the BEST next action:
+{{
+    "action": "search|click|scroll|wait|navigate",
+    "target": "specific selector or search term",
+    "value": "text to type or wait duration", 
+    "reasoning": "why this advances the goal efficiently",
+    "confidence": 0.90,
+    "expected_outcome": "what should happen next",
+    "human_like_delay": 2.5
+}}
+
+Prioritize: 1) Goal completion 2) Natural behavior 3) Error avoidance
+"""
+
+[prompts_2025.goal_parsing]
+system = "You are an expert at parsing e-commerce user intentions. Be precise and extract only information explicitly mentioned."
+template = """
+Parse this e-commerce goal: "{goal}"
+
+Extract:
+{{
+    "primary_goal": "main objective",
+    "product_keywords": ["search", "terms"],
+    "action_type": "search|browse|purchase",
+    "preferences": {{"any": "constraints"}}
+}}
+"""
+
+[prompts_2025.page_analysis]
+system = "You are an expert at analyzing web pages for automation. Prioritize accurate identification of page types and actionable elements."
+template = """
+Analyze this e-commerce page:
+Title: {title}
+Content: {content_sample}
+
+Respond with:
+{{
+    "page_type": "homepage|search_results|product_page|other",
+    "key_elements": ["search_box", "products", "navigation"],
+    "next_actions": ["possible", "actions"]
+}}
+"""
+
+[prompts_2025.action_decision]
+system = "You are an expert at making navigation decisions. Always prioritize goal completion while handling security challenges appropriately."
+template = """
+Given this intent: {intent}
+And this page: {page_analysis}
+
+What should I do next?
+{{
+    "action": "search|click|scroll|wait",
+    "target": "specific element or term",
+    "reasoning": "why this action",
+    "confidence": 0.95
+}}
+"""
+
+[prompts_2025.simulation_decision]
+system = "You are an expert at simulating intelligent navigation decisions for demonstration purposes."
+template = """
+For this scenario: {description}
+With goal: {goal}
+Task: {ai_task}
+
+What would an intelligent AI navigator do?
+{{
+    "action": "specific action",
+    "reasoning": "logical explanation",
+    "expected_outcome": "what happens next"
+}}
+"""
+
+# Simulation scenarios for demo
+[simulation_scenarios]
+
+[[simulation_scenarios.scenarios]]
+page_type = "homepage"
+description = "Bunnings homepage with search box"
+ai_task = "Find and use search functionality"
+
+[[simulation_scenarios.scenarios]]
+page_type = "search_results"
+description = "Search results for cordless drill"
+ai_task = "Identify best product match"
+
+[[simulation_scenarios.scenarios]]
+page_type = "product_page"
+description = "Specific drill product page"
+ai_task = "Add item to cart"
+
+# Error handling and recovery
+[error_handling_2025]
+retry_strategies = ["browser_restart", "strategy_change", "fallback_site"]
+max_retries_per_strategy = 2
+intelligent_backoff = true
+error_classification = "advanced"
+
+[error_handling_2025.recovery_actions]
+cloudflare_timeout = "switch_strategy"
+element_not_found = "ai_analysis_retry"
+network_error = "connection_retry"
+unexpected_navigation = "context_reanalysis"
+
+# Monitoring and metrics
+[monitoring_2025]
+track_all_interactions = true
+performance_metrics = true
+success_rate_tracking = true
+behavior_authenticity_score = true
+track_session_metrics = true
+
+[monitoring_2025.metrics]
+bypass_success_rate = "percentage_by_strategy"
+average_resolution_time = "seconds_per_strategy" 
+ai_decision_accuracy = "percentage_correct_predictions"
+human_behavior_score = "authenticity_rating_0_to_1"
+
+# Feature flags for gradual rollout
+[features_2025]
+camoufox_mode = true
+intelligent_patience = true
+adaptive_behavior = true
+context_aware_decisions = true
+advanced_fingerprint_evasion = true
+session_building_v2 = true
+ai_powered_timing = true
+
+# Development and debugging
+[debug_2025]
+verbose_logging = true
+save_screenshots = true
+interaction_recording = true
+timing_analysis = true
+fingerprint_testing = false
