@@ -26,6 +26,16 @@ Software:
       Time since boot: 14:05
 ```
 
+**Core Package:**  
+- selenium
+- anthropic
+- python-dotenv
+- toml
+- playwright==1.10.0
+- pyee==8.2.2
+- undetected-playwright==0.3.0
+
+
 ## Environment Setup
 1. Create a .env file  in the project's root dir with the contents below:
 ```
@@ -290,41 +300,3 @@ Files Generated:
   ]
 }
 ```
-
-## Project Structure:
-```
-.
-├── README.md
-├── browser_profile.................Browswer profile created after first run
-├── bunnings
-│   ├── config.py
-│   └── navigator.py
-├── config.toml......................Application Configuration
-├── navigate_to_checkout.py..........Execution Script
-├── navigator_app.log................Logs
-├── pep.sh...........................Pep8 Analysis
-├── remove_whitespaces.sh............Remove unwanted whitespaces ./remove_whitespaces.sh bunnings/*.py
-├── setup.sh.........................Virtual Environment Setup
-├── tech_assignment_ai_research.pdf..Assignment Instructions
-└── todo.sh..........................Review any code TODOs ./todo.sh
-```
-
-## config.toml user_agent configuration:
-**Mac:**  
-1. In terminal run `$ system_profiler SPSoftwareDataType SPHardwareDataType`
-2. copy stdout
-3. open an LLM chat
-4. Use this prompt:
-"""
-I am using python playwright for some web automations and need help with creating a realistic user agent for my laptop with these specifications: 
-```
-<terminal-stdout>
-```
-I only need the user agent.
-"""  
-5. Copy the user agent into `config.toml` user_agent
-
-
-SETUP:
-> pip install undetected-playwright
-> playwright install chromium
