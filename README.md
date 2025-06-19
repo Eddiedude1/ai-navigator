@@ -21,6 +21,8 @@ For comprehensive technical details including AI decision-making processes, bypa
 
 **[Technical Documentation](https://github.com/yourusername/yourrepositoryname/raw/main/AI-Navigator-Technidal-Documentation.pdf)**
 
+**Technical Documentation:** [View](https://github.com/yourusername/yourrepositoryname/blob/main/AI-Navigator-Technidal-Documentation.pdf) | [Download](https://github.com/yourusername/yourrepositoryname/raw/main/AI-Navigator-Technidal-Documentation.pdf)
+
 This documentation covers:
 - AI decision-making architecture and edge case handling
 - Advanced Cloudflare bypass algorithms with mathematical models
