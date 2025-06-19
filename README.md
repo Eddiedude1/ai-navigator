@@ -19,9 +19,9 @@ The AI Navigator employs a sophisticated multi-layered architecture combining ad
 
 For comprehensive technical details including AI decision-making processes, bypass algorithms, and implementation specifics, see:
 
-**[Technical Documentation](https://github.com/yourusername/yourrepositoryname/raw/main/AI-Navigator-Technidal-Documentation.pdf)**
+**[Technical Documentation](https://github.com/Eddiedude1/yourrepositoryname/raw/main/AI-Navigator-Technidal-Documentation.pdf)**
 
-**Technical Documentation:** [View](https://github.com/yourusername/yourrepositoryname/blob/main/AI-Navigator-Technidal-Documentation.pdf) | [Download](https://github.com/yourusername/yourrepositoryname/raw/main/AI-Navigator-Technidal-Documentation.pdf)
+**Technical Documentation:** [View](https://github.com/Eddiedude1/yourrepositoryname/blob/main/AI-Navigator-Technidal-Documentation.pdf) | [Download](https://github.com/yourusername/yourrepositoryname/raw/main/AI-Navigator-Technidal-Documentation.pdf)
 
 This documentation covers:
 - AI decision-making architecture and edge case handling
