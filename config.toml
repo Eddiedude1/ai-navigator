@@ -47,7 +47,7 @@ primary_alternatives = [
 ]
 
 # Enhanced bypass configuration
-[bypass_2025]
+[bypass]
 max_attempts = 6
 wait_between_attempts_min = 120
 wait_between_attempts_max = 240
@@ -57,7 +57,7 @@ check_interval = 15
 max_wait_time = 600
 
 # Bypass strategy configuration
-[bypass_2025.strategies]
+[bypass.strategies]
 names = [
     "Gradual Session Building",
     "Multi-Site Credibility", 
@@ -66,7 +66,7 @@ names = [
 timeout_per_strategy = 300
 
 # Enhanced stealth configuration
-[bypass_2025.stealth]
+[bypass.stealth]
 canvas_fingerprint_randomization = true
 webgl_fingerprint_spoofing = true
 audio_context_noise = true
@@ -75,7 +75,7 @@ language_consistency = true
 hardware_spoofing = true
 
 # Advanced timing patterns
-[bypass_2025.timing]
+[bypass.timing]
 mouse_movement_variance = 0.15
 typing_speed_variance = 0.25
 scroll_frequency_natural = true
@@ -83,7 +83,7 @@ reading_pause_simulation = true
 impatience_progression = true
 
 # Session building strategies
-[bypass_2025.session_building]
+[bypass.session_building]
 google_entry_required = true
 credibility_sites_count = 2
 search_progression = ["weather", "news", "hardware", "bunnings"]
@@ -125,7 +125,7 @@ specific = [
 ]
 
 # Browser fingerprint evasion
-[browser_2025]
+[browser]
 headless = false
 slow_mo_min = 50
 slow_mo_max = 200
@@ -134,13 +134,13 @@ user_agent_rotation = true
 permissions_spoofing = true
 default_timeout = 120000
 
-[browser_2025.viewport]
+[browser.viewport]
 width_min = 1366
 width_max = 1920
 height_min = 768
 height_max = 1080
 
-[browser_2025.args]
+[browser.args]
 core_stealth = [
     "--no-sandbox",
     "--disable-dev-shm-usage",
@@ -183,7 +183,7 @@ performance_optimization = [
 ]
 
 # Enhanced user agent pool
-[browser_2025.user_agents]
+[browser.user_agents]
 chrome_versions = [119, 120, 121, 122, 123]
 os_combinations = [
     "Windows NT 10.0; Win64; x64",
@@ -193,7 +193,7 @@ os_combinations = [
 template = "Mozilla/5.0 ({os}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{version}.0.0.0 Safari/537.36"
 
 # HTTP headers configuration
-[browser_2025.headers]
+[browser.headers]
 accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
 accept_language = "en-AU,en;q=0.9,en-US;q=0.8"
 accept_encoding = "gzip, deflate, br"
@@ -205,13 +205,13 @@ sec_fetch_site = "none"
 sec_fetch_user = "?1"
 
 # Geolocation settings
-[browser_2025.geolocation]
+[browser.geolocation]
 latitude_base = -33.8688
 longitude_base = 151.2093
 variance = 0.05
 
 # Cloudflare detection patterns (2025 updated)
-[cloudflare_detection_2025]
+[cloudflare_detection]
 challenge_indicators = [
     "just a moment",
     "checking your browser", 
@@ -245,7 +245,7 @@ success_indicators = [
 ]
 
 # Progressive patience levels for waiting
-[cloudflare_detection_2025.patience_levels]
+[cloudflare_detection.patience_levels]
 level_0 = { duration = 60, behavior = "minimal", mouse_movement = 0.1 }
 level_1 = { duration = 120, behavior = "reading", scroll_probability = 0.2 }
 level_2 = { duration = 180, behavior = "mild_impatience", interaction_increase = 0.3 }
@@ -253,14 +253,14 @@ level_3 = { duration = 300, behavior = "moderate_activity", refresh_probability 
 level_4 = { duration = 600, behavior = "frustrated_waiting", keyboard_usage = 0.2 }
 
 # Human behavior simulation patterns
-[human_behavior_2025]
+[human_behavior]
 mouse_movement_patterns = "bezier_curves"
 typing_rhythm_variation = true
 reading_pause_distribution = "gaussian"
 scroll_momentum_simulation = true
 focus_behavior_tracking = true
 
-[human_behavior_2025.mouse]
+[human_behavior.mouse]
 micro_movements = true
 drift_simulation = true
 acceleration_curves = "human_like"
@@ -270,13 +270,13 @@ steps_max = 15
 curve_variance = 20
 micro_adjustment_range = 2
 
-[human_behavior_2025.timing]
+[human_behavior.timing]
 action_clustering = true
 inter_cluster_gaps = [2.0, 8.0]
 thinking_pauses = [0.3, 2.5]
 
 # Human behavior delays
-[human_behavior_2025.delays]
+[human_behavior.delays]
 demo_behavior_min = 2
 demo_behavior_max = 5
 realistic_search_delay = 1
@@ -284,7 +284,7 @@ search_results_interaction_min = 2
 search_results_interaction_max = 4
 
 # Action delays for human simulation
-[human_behavior_2025.action_delays]
+[human_behavior.action_delays]
 thinking_min = 0.5
 thinking_max = 2.0
 click_prepare_min = 0.1
@@ -323,14 +323,14 @@ buttons = [
 timeout = 3000
 
 # AI configuration with enhanced models
-[ai_2025]
+[ai]
 model = "claude-3-5-sonnet-20241022" 
 backup_model = "claude-3-haiku-20240307"
 vision_analysis_enabled = true
 context_awareness = "advanced"
 max_tokens_default = 1000
 
-[ai_2025.token_limits]
+[ai.token_limits]
 page_analysis = 4000
 decision_making = 2000  
 goal_completion = 600
@@ -342,9 +342,9 @@ search_term_extraction = 400
 cloudflare_detection = 1000
 
 # Enhanced prompts for 2025
-[prompts_2025]
+[prompts]
 
-[prompts_2025.cloudflare_detection]
+[prompts.cloudflare_detection]
 system = "You are an expert at detecting Cloudflare challenges and website security measures. Be precise in identifying challenge pages vs normal website content."
 template = """
 Analyze this webpage for Cloudflare challenges:
@@ -370,7 +370,7 @@ Respond with ONLY valid JSON:
 }}
 """
 
-[prompts_2025.intelligent_navigation]
+[prompts.intelligent_navigation]
 system = "You are an expert e-commerce navigator. Focus on efficient, goal-oriented navigation while maintaining human-like behavior."
 template = """
 Navigate towards this goal: {goal}
@@ -386,7 +386,7 @@ User Context:
 - Prefers efficient but natural browsing
 - Familiar with Bunnings website layout
 
-Choose the BEST next action:
+Choose the BEST next action and respond with ONLY valid JSON:
 {{
     "action": "search|click|scroll|wait|navigate",
     "target": "specific selector or search term",
@@ -400,12 +400,12 @@ Choose the BEST next action:
 Prioritize: 1) Goal completion 2) Natural behavior 3) Error avoidance
 """
 
-[prompts_2025.goal_parsing]
+[prompts.goal_parsing]
 system = "You are an expert at parsing e-commerce user intentions. Be precise and extract only information explicitly mentioned."
 template = """
 Parse this e-commerce goal: "{goal}"
 
-Extract:
+Extract and respond with ONLY valid JSON::
 {{
     "primary_goal": "main objective",
     "product_keywords": ["search", "terms"],
@@ -414,14 +414,14 @@ Extract:
 }}
 """
 
-[prompts_2025.page_analysis]
+[prompts.page_analysis]
 system = "You are an expert at analyzing web pages for automation. Prioritize accurate identification of page types and actionable elements."
 template = """
 Analyze this e-commerce page:
 Title: {title}
 Content: {content_sample}
 
-Respond with:
+Respond with ONLY valid JSON:
 {{
     "page_type": "homepage|search_results|product_page|other",
     "key_elements": ["search_box", "products", "navigation"],
@@ -429,13 +429,13 @@ Respond with:
 }}
 """
 
-[prompts_2025.action_decision]
+[prompts.action_decision]
 system = "You are an expert at making navigation decisions. Always prioritize goal completion while handling security challenges appropriately."
 template = """
 Given this intent: {intent}
 And this page: {page_analysis}
 
-What should I do next?
+What should I do next?  Respond with ONLY valid JSON.
 {{
     "action": "search|click|scroll|wait",
     "target": "specific element or term",
@@ -444,14 +444,14 @@ What should I do next?
 }}
 """
 
-[prompts_2025.simulation_decision]
+[prompts.simulation_decision]
 system = "You are an expert at simulating intelligent navigation decisions for demonstration purposes."
 template = """
 For this scenario: {description}
 With goal: {goal}
 Task: {ai_task}
 
-What would an intelligent AI navigator do?
+What would an intelligent AI navigator do?  Respond with ONLY valid JSON
 {{
     "action": "specific action",
     "reasoning": "logical explanation",
@@ -478,34 +478,34 @@ description = "Specific drill product page"
 ai_task = "Add item to cart"
 
 # Error handling and recovery
-[error_handling_2025]
+[error_handling]
 retry_strategies = ["browser_restart", "strategy_change", "fallback_site"]
 max_retries_per_strategy = 2
 intelligent_backoff = true
 error_classification = "advanced"
 
-[error_handling_2025.recovery_actions]
+[error_handling.recovery_actions]
 cloudflare_timeout = "switch_strategy"
 element_not_found = "ai_analysis_retry"
 network_error = "connection_retry"
 unexpected_navigation = "context_reanalysis"
 
 # Monitoring and metrics
-[monitoring_2025]
+[monitoring]
 track_all_interactions = true
 performance_metrics = true
 success_rate_tracking = true
 behavior_authenticity_score = true
 track_session_metrics = true
 
-[monitoring_2025.metrics]
+[monitoring.metrics]
 bypass_success_rate = "percentage_by_strategy"
 average_resolution_time = "seconds_per_strategy" 
 ai_decision_accuracy = "percentage_correct_predictions"
 human_behavior_score = "authenticity_rating_0_to_1"
 
 # Feature flags for gradual rollout
-[features_2025]
+[features]
 camoufox_mode = true
 intelligent_patience = true
 adaptive_behavior = true
@@ -515,7 +515,7 @@ session_building_v2 = true
 ai_powered_timing = true
 
 # Development and debugging
-[debug_2025]
+[debug]
 verbose_logging = true
 save_screenshots = true
 interaction_recording = true

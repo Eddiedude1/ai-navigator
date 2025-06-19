@@ -45,7 +45,7 @@ get_python_version() {
 
 # Function to find suitable Python executable
 find_python() {
-    local python_candidates=("python3" "python" "python3.8" "python3.9" "python3.10" "python3.11")
+    local python_candidates=("python3" "python3.9")
     
     for candidate in "${python_candidates[@]}"; do
         if command_exists "$candidate"; then

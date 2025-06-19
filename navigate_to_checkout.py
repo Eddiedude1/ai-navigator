@@ -41,20 +41,50 @@ async def main(config_file_path: str):
     else:
         print("DEMONSTRATION COMPLETED (with simulation fallback)")
 
-    if result:
-        print("\nKey Achievements:")
-        for achievement in result.get('technical_achievements', []):
-            print(f"  {achievement}")
+    # Safe access to result properties
+    if result is None:
+        print("DEMONSTRATION FAILED - No result returned")
+        return None
 
+    # Check success status safely
+    final_result = result.get('final_result', {})
+    if final_result and final_result.get('success', False):
+        print("DEMONSTRATION SUCCESSFUL")
+    else:
+        print("DEMONSTRATION COMPLETED (with simulation fallback)")
+        if 'error' in result:
+            print(f"Error encountered: {result['error']}")
+
+    # Display achievements safely
+    achievements = result.get('technical_achievements', [])
+    if achievements:
+        print("\nKey Achievements:")
+        for achievement in achievements:
+            print(f"  {achievement}")
+    else:
+        print("\nNo technical achievements recorded")
+
+    # Display generated files safely
+    try:
         print("\nFiles Generated:")
         log_filename = navigator.config.files.log_filename
         summary_filename = navigator.config.files.summary_filename
         print(f"  {log_filename}")
         print(f"  {summary_filename}")
 
-        screenshots = result.get('final_result', {}).get('screenshots', [])
-        for screenshot in screenshots:
-            print(f"  {screenshot}")
+        # Check for screenshots safely
+        if final_result and 'screenshots' in final_result:
+            screenshots = final_result.get('screenshots', [])
+            for screenshot in screenshots:
+                print(f"  {screenshot}")
+        elif hasattr(navigator, 'screenshots') and navigator.screenshots:
+            for screenshot in navigator.screenshots:
+                print(f"  {screenshot}")
+        else:
+            print("  No screenshots captured")
+
+    except Exception as e:
+        print(f"Error accessing file information: {e}")
 
     return result
 

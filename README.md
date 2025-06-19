@@ -1,9 +1,15 @@
 # AI Navigator
 An AI-First navigator for the site [bunnings.com](https://www.bunnings.com.au) the will find your item of interest and proceed to checkout.
+- This POC uses Antrhopic API for AI decisioning
+- Currenty built to run on a Unix OS
+- Some packages are intentionally downgraded due to the old Mac OS virsion used to develope this project. 
+- Python Versio: 3.9.23 (package/hardware restrained)
+- Future Improvements: 
+    - make application LLM agnostic for testing and fine tuning AI decision making
+    - make application OS agnostic for a more seamless user experience
+    - update application to use latest package and python versions to stay on the bleeding edge
 
-> Some packages are intentionally downgraded due to the old Mac OS virsion used to develope this project. 
-
-**Macbook Specs:**  
+**Outdated Macbook Specs:**  
 ```
 Software:
 
@@ -20,10 +26,23 @@ Software:
       Time since boot: 14:05
 ```
 
+## Environment Setup
+1. Create a .env file  in the project's root dir with the contents below:
+```
+ANTHROPIC_API_KEY=...
+```
+2. Run: `$ ./setup.sh` (this will set up and activate your venv)
+
+## Execution:
+1. `$ ./navigate_to_checkout.py`
+
+
 ## Project Structure
 ```
 .
 ├── README.md
+├── .env ....................... NOT in version control
+├── .gitignore
 ├── bunnings ................... Source Code
 │   ├── config.py
 │   └── navigator.py
@@ -266,8 +285,8 @@ Files Generated:
   "screenshots": [
     "demo_cloudflare_0s.png",
     "demo_cloudflare_120s.png",
-    "demo_cloudflare_0s.png",
-    "demo_cloudflare_120s.png"
+    "2_demo_cloudflare_0s.png",
+    "2_demo_cloudflare_120s.png"
   ]
 }
 ```
@@ -290,7 +309,7 @@ Files Generated:
 └── todo.sh..........................Review any code TODOs ./todo.sh
 ```
 
-### config.toml user_agent configuration:
+## config.toml user_agent configuration:
 **Mac:**  
 1. In terminal run `$ system_profiler SPSoftwareDataType SPHardwareDataType`
 2. copy stdout

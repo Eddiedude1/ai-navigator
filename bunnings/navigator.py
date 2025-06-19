@@ -3,15 +3,16 @@ Production-Ready Navigator for Interview Assignment
 Combines advanced bypass with reliable fallback strategies
 """
 
+import anthropic
 import asyncio
-import random
-import time
 import json
 import logging
-from typing import Dict, List
+import os
 from playwright.async_api import async_playwright
+import random
+import time
+from typing import Dict, List
 from undetected_playwright import Malenia
-import anthropic
 
 from bunnings import config
 
@@ -111,12 +112,12 @@ class InterviewReadyNavigator:
 
         # Show key configuration highlights - with safe attribute access
         config_highlights = {
-            'browser_strategies': len(self.config.bypass_2025.strategies.names),
-            'ai_model': self.config.ai_2025.model,
-            'max_bypass_attempts': self.config.bypass_2025.max_attempts,
-            'timing_adaptive': self.config.human_behavior_2025.timing.action_clustering,
+            'browser_strategies': len(self.config.bypass.strategies.names),
+            'ai_model': self.config.ai.model,
+            'max_bypass_attempts': self.config.bypass.max_attempts,
+            'timing_adaptive': self.config.human_behavior.timing.action_clustering,
             'fallback_sites': len(self.config.fallback_sites.primary_alternatives),
-            'monitoring_enabled': self.config.monitoring_2025.track_session_metrics
+            'monitoring_enabled': self.config.monitoring.track_session_metrics
         }
 
         print(f"Configuration loaded: {self.config.general.name} "
@@ -161,16 +162,16 @@ class InterviewReadyNavigator:
             viewport = self._get_randomized_viewport()
 
             launch_options = {
-                'headless': self.config.browser_2025.headless,
+                'headless': self.config.browser.headless,
                 'slow_mo': random.randint(
-                    self.config.browser_2025.slow_mo_min,
-                    self.config.browser_2025.slow_mo_max
+                    self.config.browser.slow_mo_min,
+                    self.config.browser.slow_mo_max
                  ),
                 'args': stealth_args
             }
 
             self.browser = await playwright.chromium.launch(**launch_options)
-            browser_geo_cfg = self.config.browser_2025.geolocation
+            browser_geo_cfg = self.config.browser.geolocation
             context_options = {
                 'viewport': viewport,
                 'user_agent': user_agent,
@@ -202,7 +203,7 @@ class InterviewReadyNavigator:
             await self._inject_advanced_stealth_script()
 
             self.page = await self.context.new_page()
-            self.page.set_default_timeout(self.config.browser_2025.default_timeout)
+            self.page.set_default_timeout(self.config.browser.default_timeout)
 
             setup_duration = time.time() - setup_start
             print(f"Advanced browser setup completed in {setup_duration:.1f}s")
@@ -233,7 +234,7 @@ class InterviewReadyNavigator:
         print("-" * 50)
 
         # Safe access to strategy names with fallbacks
-        strategy_names = self.config.bypass_2025.strategies.names
+        strategy_names = self.config.bypass.strategies.names
 
         strategies = [
             (strategy_names[0] if len(strategy_names) > 0 else "Gradual Session Building",
@@ -249,7 +250,7 @@ class InterviewReadyNavigator:
 
             attempt_start = time.time()
             try:
-                timeout_duration = self.config.bypass_2025.strategies.timeout_per_strategy
+                timeout_duration = self.config.bypass.strategies.timeout_per_strategy
                 success = await asyncio.wait_for(
                     strategy_func(),
                     timeout=timeout_duration
@@ -280,7 +281,7 @@ class InterviewReadyNavigator:
                     print(f"{strategy_name} failed after {attempt_duration:.1f}s")
 
             except asyncio.TimeoutError:
-                timeout_duration = self.config.bypass_2025.strategies.timeout_per_strategy
+                timeout_duration = self.config.bypass.strategies.timeout_per_strategy
                 print(f"{strategy_name} timed out after {timeout_duration} seconds")
                 self.bypass_attempts.append({
                     'strategy': strategy_name,
@@ -305,7 +306,7 @@ class InterviewReadyNavigator:
         """Gradual approach with detailed progress reporting"""
         print("   Building browsing session gradually...")
         session_cfg = self.config.session_building
-        human_delay_cfg = self.config.human_behavior_2025.delays
+        human_delay_cfg = self.config.human_behavior.delays
         elements_cfg = self.config.element_interaction
         general_cfg = self.config.general
 
@@ -315,7 +316,7 @@ class InterviewReadyNavigator:
 
         await self.page.goto(
             entry_point,
-            timeout=self.config.browser_2025.default_timeout
+            timeout=self.config.browser.default_timeout
         )
 
         # Safe access to human behavior delays
@@ -336,10 +337,10 @@ class InterviewReadyNavigator:
 
         # Step 3: Visit credible Australian site
         print("   Step 3: Visiting Australian government site...")
-        credible_site = random.choice(session_cfg.credible_sites)
+        credible_site = random.choice(session_cfg.credibility_sites)
         await self.page.goto(
             credible_site,
-            timeout=self.config.browser_2025.default_timeout
+            timeout=self.config.browser.default_timeout
         )
 
         await self._demo_human_behavior(
@@ -353,7 +354,7 @@ class InterviewReadyNavigator:
             (url for url in session_cfg.entry_points if 'google' in url),
             session_cfg.entry_points[0]
         )
-        await self.page.goto(google_url, timeout=self.config.browser_2025.default_timeout)
+        await self.page.goto(google_url, timeout=self.config.browser.default_timeout)
 
         hardware_term = random.choice(session_cfg.search_terms.hardware_related)
         await self._demo_realistic_search(hardware_term)
@@ -376,13 +377,13 @@ class InterviewReadyNavigator:
                 print("   No link found, navigating directly...")
                 await self.page.goto(
                     general_cfg.start_url,
-                    timeout=self.config.browser_2025.default_timeout
+                    timeout=self.config.browser.default_timeout
                 )
         except Exception:
             print("   Direct navigation to Bunnings...")
             await self.page.goto(
                 general_cfg.start_url,
-                timeout=self.config.browser_2025.default_timeout
+                timeout=self.config.browser.default_timeout
             )
 
         # Step 6: Intelligent Cloudflare wait
@@ -392,11 +393,11 @@ class InterviewReadyNavigator:
     async def _multi_site_approach_demo(self) -> bool:
         """Multi-site approach demonstration"""
         print("   Building multi-site browsing pattern...")
-        human_delays_cfg = self.config.human_behavior_2025.delays
+        human_delays_cfg = self.config.human_behavior.delays
 
         # Visit competitor sites first - safe config access
         competitor_sites = self.config.session_building.competitor_sites
-        default_timeout = self.config.browser_2025.default_timeout
+        default_timeout = self.config.browser.default_timeout
         demo_min = human_delays_cfg.search_results_interaction_min
         demo_max = human_delays_cfg.demo_behavior_max
 
@@ -421,7 +422,7 @@ class InterviewReadyNavigator:
 
         await self.page.goto(
             self.config.general.start_url,
-            self.config.browser_2025.default_timeout
+            self.config.browser.default_timeout
         )
         return await self._demo_cloudflare_wait()
 
@@ -429,8 +430,8 @@ class InterviewReadyNavigator:
         """Demonstrate intelligent Cloudflare waiting"""
         print("   Analyzing page for Cloudflare challenge...")
 
-        max_wait = self.config.bypass_2025.max_wait_time
-        check_interval = self.config.bypass_2025.check_interval
+        max_wait = self.config.bypass.max_wait_time
+        check_interval = self.config.bypass.check_interval
         total_waited = 0
 
         screenshot_freq = self.config.interview_mode.screenshot_frequency
@@ -509,10 +510,10 @@ class InterviewReadyNavigator:
             title = await self.page.title()
             content_sample = await self.page.evaluate(
                 "document.body.innerText.slice(0, "
-                f"{self.config.ai_2025.token_limits.page_analysis})"
+                f"{self.config.ai.token_limits.page_analysis})"
             )
 
-            prompt = self.config.prompts_2025.cloudflare_detection.template.format(
+            prompt = self.config.prompts.cloudflare_detection.template.format(
                 url=self.page.url,
                 title=title,
                 content_sample=content_sample
@@ -520,7 +521,7 @@ class InterviewReadyNavigator:
 
             response = await self._query_ai_with_config(
                 prompt=prompt,
-                system_prompt=self.config.prompts_2025.cloudflare_detection.system,
+                system_prompt=self.config.prompts.cloudflare_detection.system,
                 task_type='cloudflare_detection'
             )
             result = json.loads(response)
@@ -701,11 +702,11 @@ class InterviewReadyNavigator:
     # AI helper methods
     async def _ai_parse_goal(self, goal: str) -> Dict:
         """AI-powered goal parsing"""
-        prompt = self.config.prompts_2025.goal_parsing.template.format(goal=goal)
+        prompt = self.config.prompts.goal_parsing.template.format(goal=goal)
 
         response = await self._query_ai_with_config(
             prompt=prompt,
-            system_prompt=self.config.prompts_2025.goal_parsing.system,
+            system_prompt=self.config.prompts.goal_parsing.system,
             task_type='intent_parsing'
         )
         return json.loads(response)
@@ -715,38 +716,38 @@ class InterviewReadyNavigator:
         title = await self.page.title()
         content_sample = await self.page.evaluate(
             "document.body.innerText.slice(0, "
-            f"{self.config.ai_2025.token_limits.page_analysis})"
+            f"{self.config.ai.token_limits.page_analysis})"
         )
 
-        prompt = self.config.prompts_2025.page_analysis.template.format(
+        prompt = self.config.prompts.page_analysis.template.format(
             title=title,
             content_sample=content_sample
         )
 
         response = await self._query_ai_with_config(
             prompt=prompt,
-            system_prompt=self.config.prompts_2025.page_analysis.system,
+            system_prompt=self.config.prompts.page_analysis.system,
             task_type='page_analysis'
         )
         return json.loads(response)
 
     async def _ai_decide_action(self, intent: Dict, page_analysis: Dict) -> Dict:
         """AI-powered action decision"""
-        prompt = self.config.prompts_2025.action_decision.template.format(
+        prompt = self.config.prompts.action_decision.template.format(
             intent=json.dumps(intent),
             page_analysis=json.dumps(page_analysis)
         )
 
         response = await self._query_ai_with_config(
             prompt=prompt,
-            system_prompt=self.config.prompts_2025.action_decision.system,
+            system_prompt=self.config.prompts.action_decision.system,
             task_type='decision_making'
         )
         return json.loads(response)
 
     async def _simulate_ai_decision(self, scenario: Dict, goal: str) -> Dict:
         """Simulate AI decision for demonstration"""
-        prompt = self.config.prompts_2025.simulation_decision.template.format(
+        prompt = self.config.prompts.simulation_decision.template.format(
             description=scenario['description'],
             goal=goal,
             ai_task=scenario['ai_task']
@@ -754,7 +755,7 @@ class InterviewReadyNavigator:
 
         response = await self._query_ai_with_config(
             prompt=prompt,
-            system_prompt=self.config.prompts_2025.simulation_decision.system,
+            system_prompt=self.config.prompts.simulation_decision.system,
             task_type='decision_making'
         )
         return json.loads(response)
@@ -818,7 +819,7 @@ class InterviewReadyNavigator:
             if element:
                 await element.click()
                 await asyncio.sleep(
-                    self.config.human_behavior_2025.action_delays.post_click_max
+                    self.config.human_behavior.action_delays.post_click_max
                 )
                 return f"Successfully clicked {target}"
             else:
@@ -836,13 +837,13 @@ class InterviewReadyNavigator:
         """Query AI with configuration"""
         try:
             max_tokens = getattr(
-                self.config.ai_2025.token_limits,
+                self.config.ai.token_limits,
                 task_type,
-                self.config.ai_2025.max_tokens_default
+                self.config.ai.max_tokens_default
             )
 
             api_params = {
-                "model": self.config.ai_2025.model,
+                "model": self.config.ai.model,
                 "max_tokens": max_tokens,
                 "messages": [{"role": "user", "content": prompt}]
             }
@@ -860,22 +861,22 @@ class InterviewReadyNavigator:
     def _get_comprehensive_stealth_args(self) -> List[str]:
         """Get comprehensive stealth arguments"""
         args = []
-        args.extend(self.config.browser_2025.args.core_stealth)
-        args.extend(self.config.browser_2025.args.advanced_stealth)
-        args.extend(self.config.browser_2025.args.fingerprint_evasion)
-        args.extend(self.config.browser_2025.args.performance_optimization)
+        args.extend(self.config.browser.args.core_stealth)
+        args.extend(self.config.browser.args.advanced_stealth)
+        args.extend(self.config.browser.args.fingerprint_evasion)
+        args.extend(self.config.browser.args.performance_optimization)
         return args
 
     def _generate_realistic_user_agent(self) -> str:
         """Generate realistic user agent"""
         chrome_version = random.choice(
-            self.config.browser_2025.user_agents.chrome_versions
+            self.config.browser.user_agents.chrome_versions
         )
         os_string = random.choice(
-            self.config.browser_2025.user_agents.os_combinations
+            self.config.browser.user_agents.os_combinations
         )
 
-        return self.config.browser_2025.user_agents.template.format(
+        return self.config.browser.user_agents.template.format(
             os=os_string,
             version=chrome_version
         )
@@ -884,28 +885,28 @@ class InterviewReadyNavigator:
         """Get randomized viewport"""
         return {
             'width': random.randint(
-                self.config.browser_2025.viewport.width_min,
-                self.config.browser_2025.viewport.width_max
+                self.config.browser.viewport.width_min,
+                self.config.browser.viewport.width_max
             ),
             'height': random.randint(
-                self.config.browser_2025.viewport.height_min,
-                self.config.browser_2025.viewport.height_max
+                self.config.browser.viewport.height_min,
+                self.config.browser.viewport.height_max
             )
         }
 
     def _get_realistic_headers(self) -> Dict[str, str]:
         """Get realistic HTTP headers"""
         return {
-            'Accept': self.config.browser_2025.headers.accept,
-            'Accept-Language': self.config.browser_2025.headers.accept_language,
-            'Accept-Encoding': self.config.browser_2025.headers.accept_encoding,
-            'Cache-Control': self.config.browser_2025.headers.cache_control,
+            'Accept': self.config.browser.headers.accept,
+            'Accept-Language': self.config.browser.headers.accept_language,
+            'Accept-Encoding': self.config.browser.headers.accept_encoding,
+            'Cache-Control': self.config.browser.headers.cache_control,
             'Upgrade-Insecure-Requests':
-                self.config.browser_2025.headers.upgrade_insecure_requests,
-            'Sec-Fetch-Dest': self.config.browser_2025.headers.sec_fetch_dest,
-            'Sec-Fetch-Mode': self.config.browser_2025.headers.sec_fetch_mode,
-            'Sec-Fetch-Site': self.config.browser_2025.headers.sec_fetch_site,
-            'Sec-Fetch-User': self.config.browser_2025.headers.sec_fetch_user
+                self.config.browser.headers.upgrade_insecure_requests,
+            'Sec-Fetch-Dest': self.config.browser.headers.sec_fetch_dest,
+            'Sec-Fetch-Mode': self.config.browser.headers.sec_fetch_mode,
+            'Sec-Fetch-Site': self.config.browser.headers.sec_fetch_site,
+            'Sec-Fetch-User': self.config.browser.headers.sec_fetch_user
         }
 
     async def _inject_advanced_stealth_script(self):
@@ -983,10 +984,10 @@ class InterviewReadyNavigator:
     async def _demo_adaptive_behavior(self, patience_level: int):
         """Demonstrate adaptive behavior based on patience level"""
         # Safe config access with fallbacks
-        patience_cfg = self.config.cloudflare_detection_2025.patience_level
-        level_0_mouse = patience_cfg.mouse_movement
-        level_1_scroll = patience_cfg.scroll_probability
-        thinking_pauses = self.config.human_behavior_2025.timing.thinking_pauses
+        patience_cfg = self.config.cloudflare_detection.patience_levels
+        level_0_mouse = patience_cfg.level_0.mouse_movement
+        level_1_scroll = patience_cfg.level_1.scroll_probability
+        thinking_pauses = self.config.human_behavior.timing.thinking_pauses
 
         if patience_level == 0:
             # Minimal
@@ -1024,7 +1025,7 @@ class InterviewReadyNavigator:
                 await self.browser.close()
 
             # Save session summary if monitoring is enabled
-            track_metrics = self.config.monitoring_2025.track_session_metrics
+            track_metrics = self.config.monitoring.track_session_metrics
             if track_metrics:
                 session_summary = {
                     'total_time': time.time() - self.start_time,
