@@ -2,6 +2,7 @@
 An AI-First navigator for the site [bunnings.com](https://www.bunnings.com.au) the will find your item of interest and proceed to checkout.
 
 > Some packages are intentionally downgraded due to the old Mac OS virsion used to develope this project. 
+
 **Macbook Specs:**  
 ```
 Software:
