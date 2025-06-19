@@ -9,6 +9,28 @@ An AI-First navigator for the site [bunnings.com](https://www.bunnings.com.au) t
     - make application OS agnostic for a more seamless user experience
     - update application to use latest package and python versions to stay on the bleeding edge
 
+## Architecture Overview
+
+The AI Navigator employs a sophisticated multi-layered architecture combining advanced AI decision-making with intelligent Cloudflare bypass strategies.
+
+![AI Navigator Architecture](./Ai-Navigator-Architecture.png)
+
+### Technical Documentation
+
+For comprehensive technical details including AI decision-making processes, bypass algorithms, and implementation specifics, see:
+
+📄 **[Technical Documentation](./AI-Navigator-Technical-Documentation.pdf)**
+
+This documentation covers:
+- AI decision-making architecture and edge case handling
+- Advanced Cloudflare bypass algorithms with mathematical models
+- Error handling and resilience mechanisms
+- Performance optimization strategies
+- Monitoring and observability features
+
+---
+
+
 **Outdated Macbook Specs:**  
 ```
 Software:
