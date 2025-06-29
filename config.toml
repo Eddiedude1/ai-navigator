@@ -8,6 +8,7 @@ version = "3.0.0"
 start_url = "https://www.bunnings.com.au"
 max_navigation_steps = 25
 goal = "Find a cordless drill and add it to the cart"
+time_frmt = "%Y-%m-%d %H:%M:%S %Z"
 
 [logging]
 filename = "navigator_app.log"
@@ -91,7 +92,11 @@ user_behavior_simulation = "advanced"
 
 # Session building configuration
 [session_building]
-entry_point = "https://www.duckduckgo.com"
+entry_points = [
+    "https://www.google.com.au",
+    "https://www.bing.com",
+    "https://www.duckduckgo.com"
+]
 
 credibility_sites = [
     "https://www.bom.gov.au",
