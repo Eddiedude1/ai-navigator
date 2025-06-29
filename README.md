@@ -340,10 +340,16 @@ Files Generated:
 ## Session Summary Json
 ```
 {
-  "total_time": 652.4752280712128,
+  "total_time": 914.4178841114044,
   "bypass_attempts": [
     {
       "strategy": "Gradual Session Building",
+      "success": false,
+      "duration": 300,
+      "reason": "timeout"
+    },
+    {
+      "strategy": "Multi-Site Credibility",
       "success": false,
       "duration": 300,
       "reason": "timeout"
@@ -355,12 +361,185 @@ Files Generated:
       "reason": "timeout"
     }
   ],
-  "ai_decisions": 29,
+  "ai_decisions": 42,
   "screenshots": [
-    "demo_cloudflare_0s.png",
-    "demo_cloudflare_120s.png",
-    "2_demo_cloudflare_0s.png",
-    "2_demo_cloudflare_120s.png"
+    "demo__gradual_cloudflare_0s.png",
+    "demo__gradual_cloudflare_120s.png",
+    "demo__multisite_cloudflare_0s.png",
+    "demo__multisite_cloudflare_120s.png",
+    "demo__direct_cloudflare_0s.png",
+    "demo__direct_cloudflare_120s.png"
   ]
+}
+```
+
+## Sesssoin Final Results Json
+```
+{
+  "goal": "Find a cordless drill and add it to the cart",
+  "start_time": 1751227884.112462,
+  "start_time_formatted": "2025-06-29 15:11:24 CDT",
+  "phases": [
+    {
+      "name": "Configuration",
+      "status": "completed",
+      "highlights": {
+        "browser_strategies": 3,
+        "ai_model": "claude-3-5-sonnet-20241022",
+        "max_bypass_attempts": 6,
+        "timing_adaptive": true,
+        "fallback_sites": 3,
+        "monitoring_enabled": true
+      },
+      "duration": 30
+    },
+    {
+      "name": "Browser Setup",
+      "status": "completed",
+      "stealth_features": 29,
+      "duration": 3.1027450561523438
+    },
+    {
+      "name": "Bypass Attempts",
+      "status": "failed",
+      "strategies_tried": 3,
+      "total_duration": 900
+    }
+  ],
+  "ai_decisions": [
+    {
+      "type": "cloudflare_detection",
+      "input": {
+        "title": "Just a moment...",
+        "url": "https://www.bunnings.com.au/"
+      },
+      "output": {
+        "is_cloudflare_challenge": true,
+        "challenge_type": "browser_check",
+        "confidence": 0.99,
+        "indicators_found": [
+          "Title: Just a moment...",
+          "Verifying you are human message",
+          "Security connection review message",
+          "Ray ID present",
+          "Cloudflare attribution footer",
+          "No regular website content visible"
+        ],
+        "website_elements_present": false,
+        "recommendation": "wait"
+      },
+      "timestamp": "2025-06-29 15:13:07 CDT"
+    },
+    {
+      "type": "cloudflare_detection",
+      "input": {
+        "title": "Just a moment...",
+
+         ...
+
+    {
+      "type": "simulation",
+      "scenario": {
+        "page_type": "homepage",
+        "description": "Bunnings homepage with search box",
+        "ai_task": "Find and use search functionality"
+      },
+      "decision": {
+        "action": "type 'cordless drill' into the main search box",
+        "reasoning": "The search box is the quickest and most direct way to find specific products like cordless drills. Using precise search terms will yield relevant results rather than browsing through categories.",
+        "expected_outcome": "Search results page will display showing available cordless drills with images, prices and product details"
+      },
+      "timestamp": "2025-06-29 15:26:30 CDT"
+    },
+    {
+      "type": "simulation",
+      "scenario": {
+        "page_type": "search_results",
+        "description": "Search results for cordless drill",
+        "ai_task": "Identify best product match"
+      },
+      "decision": {
+        "action": "scan and filter search results by key criteria: battery voltage, customer ratings (4+ stars), price range ($50-200), and major reputable brands like DeWalt, Milwaukee, or Makita",
+        "reasoning": "Need to quickly identify high-quality drills that represent good value by focusing on the most important specs and reliable brands while eliminating low-quality options. Customer ratings help validate real-world performance.",
+        "expected_outcome": "Will identify 2-3 best candidate drills that meet criteria, allowing for detailed comparison of specific features and current pricing before making final selection for cart"
+      },
+      "timestamp": "2025-06-29 15:26:34 CDT"
+    },
+    {
+      "type": "simulation",
+      "scenario": {
+        "page_type": "product_page",
+        "description": "Specific drill product page",
+        "ai_task": "Add item to cart"
+      },
+      "decision": {
+        "action": "click add to cart button",
+        "reasoning": "Since we are already on a specific drill product page and the goal is to add a cordless drill to cart, the direct action is to click the add to cart button to fulfill the task",
+        "expected_outcome": "Item will be added to shopping cart and likely get visual confirmation like a success message or cart count incrementing"
+      },
+      "timestamp": "2025-06-29 15:26:38 CDT"
+    }
+  ],
+  "technical_achievements": [
+    "Externalized all configuration to TOML for easy modification",
+    "Implemented comprehensive browser fingerprint evasion",
+    "Demonstrated AI decision-making logic",
+    "Showed context-aware navigation strategies",
+    "Illustrated goal-oriented action planning"
+  ],
+  "final_result": {
+    "success": true,
+    "type": "simulation",
+    "scenarios_completed": 3,
+    "simulation_results": [
+      {
+        "scenario": {
+          "page_type": "homepage",
+          "description": "Bunnings homepage with search box",
+          "ai_task": "Find and use search functionality"
+        },
+        "ai_decision": {
+          "action": "type 'cordless drill' into the main search box",
+          "reasoning": "The search box is the quickest and most direct way to find specific products like cordless drills. Using precise search terms will yield relevant results rather than browsing through categories.",
+          "expected_outcome": "Search results page will display showing available cordless drills with images, prices and product details"
+        },
+        "step": 1
+      },
+      {
+        "scenario": {
+          "page_type": "search_results",
+          "description": "Search results for cordless drill",
+          "ai_task": "Identify best product match"
+        },
+        "ai_decision": {
+          "action": "scan and filter search results by key criteria: battery voltage, customer ratings (4+ stars), price range ($50-200), and major reputable brands like DeWalt, Milwaukee, or Makita",
+          "reasoning": "Need to quickly identify high-quality drills that represent good value by focusing on the most important specs and reliable brands while eliminating low-quality options. Customer ratings help validate real-world performance.",
+          "expected_outcome": "Will identify 2-3 best candidate drills that meet criteria, allowing for detailed comparison of specific features and current pricing before making final selection for cart"
+        },
+        "step": 2
+      },
+      {
+        "scenario": {
+          "page_type": "product_page",
+          "description": "Specific drill product page",
+          "ai_task": "Add item to cart"
+        },
+        "ai_decision": {
+          "action": "click add to cart button",
+          "reasoning": "Since we are already on a specific drill product page and the goal is to add a cordless drill to cart, the direct action is to click the add to cart button to fulfill the task",
+          "expected_outcome": "Item will be added to shopping cart and likely get visual confirmation like a success message or cart count incrementing"
+        },
+        "step": 3
+      }
+    ],
+    "ai_decisions_demonstrated": 42
+  },
+  "summary": {
+    "total_duration": 914.1088447570801,
+    "bypass_attempts": 3,
+    "ai_decisions": 42,
+    "screenshots": 6,
+    "technical_achievements": 5
+  }
 }
 ```
