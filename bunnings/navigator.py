@@ -7,7 +7,6 @@ import anthropic
 import asyncio
 import json
 import logging
-import os
 from playwright.async_api import async_playwright
 import random
 import time
@@ -70,6 +69,7 @@ class InterviewReadyNavigator:
         session_result = {
             'goal': goal,
             'start_time': time.time(),
+            'start_time_formatted': time.strftime(self.config.general.time_frmt),
             'phases': [],
             'ai_decisions': [],
             'technical_achievements': [],
@@ -303,17 +303,29 @@ class InterviewReadyNavigator:
         return False
 
     async def _gradual_approach_demo(self) -> bool:
-        """Gradual approach with detailed progress reporting"""
+        """Gradual approach with detailed progress reporting
+        1. Initialize with neutral entry point (DuckDuckGo)
+        2. Execute unrelated search (weather, news)
+        3. Visit credible Australian government site
+        4. Search for hardware-related terms
+        5. Locate Bunnings in search results
+        6. Navigate through saarch result link
+        7. Intelligent Clouflare resolution wait
+
+        Returns:
+        [bool] indicating if approach was successful
+        """
         print("   Building browsing session gradually...")
         session_cfg = self.config.session_building
         human_delay_cfg = self.config.human_behavior.delays
         elements_cfg = self.config.element_interaction
         general_cfg = self.config.general
 
-        # Step 1: Google Australia - safe config access
-        print("   Step 1: Starting with Duckduckgo...")
+        # Step 1: Safe config access
+        entry_point = random.choice(session_cfg.entry_points)
+        print(f"   Step 1: Starting with {entry_point}...")
         await self.page.goto(
-            session_cfg.entry_point,
+            entry_point,
             timeout=self.config.browser.default_timeout
         )
 
@@ -348,8 +360,11 @@ class InterviewReadyNavigator:
 
         # Step 4: Search for hardware
         print("   Step 4: Searching for hardware stores...")
-        duckduckgo_url = session_cfg.entry_point
-        await self.page.goto(duckduckgo_url, timeout=self.config.browser.default_timeout)
+        google_url = next(
+            (url for url in session_cfg.entry_points if 'google' in url),
+            session_cfg.entry_points[0] 
+        )
+        await self.page.goto(google_url, timeout=self.config.browser.default_timeout)
 
         hardware_term = random.choice(session_cfg.search_terms.hardware_related)
         await self._demo_realistic_search(hardware_term)
@@ -383,10 +398,19 @@ class InterviewReadyNavigator:
 
         # Step 6: Intelligent Cloudflare wait
         print("   Step 6: Waiting for Cloudflare resolution...")
-        return await self._demo_cloudflare_wait()
+        return await self._demo_cloudflare_wait(strategy_name="gradual")
 
     async def _multi_site_approach_demo(self) -> bool:
-        """Multi-site approach demonstration"""
+        """Multi-site approach demonstration
+        1. Visit competitor hardware sites (Mitre 10, Home Depot)
+        2. Demonstrate legitimate browsing behavior
+        3. Build session credibility though mutli-site activity
+        4. Approach target site aas aprt of comparison shopping
+        5. Execut Cloudflare resolution protocol
+
+        Returns:
+        [bool] indicating if approach was successful
+        """
         print("   Building multi-site browsing pattern...")
         human_delays_cfg = self.config.human_behavior.delays
 
@@ -409,20 +433,38 @@ class InterviewReadyNavigator:
         print(f"   Step {len(competitor_sites) + 1}: Approaching Bunnings...")
         await self.page.goto(self.config.general.start_url, timeout=default_timeout)
 
-        return await self._demo_cloudflare_wait()
+        return await self._demo_cloudflare_wait(strategy_name="multisite")
 
     async def _patient_direct_approach_demo(self) -> bool:
-        """Patient direct approach"""
+        """Patient direct approach
+        1. Direct navigation to target site
+        2. Extended patience protocol activation
+        3. Adaptive behavior based on wait duration
+        4. Escalating interaction patterns
+        5. Intelligent resolution detection
+
+        Returns:
+        [bool] indicating if approach was successful
+        """
         print("   Direct approach with extended patience...")
 
         await self.page.goto(
             self.config.general.start_url,
-            self.config.browser.default_timeout
+            timeout=self.config.browser.default_timeout
         )
-        return await self._demo_cloudflare_wait()
+        return await self._demo_cloudflare_wait(strategy_name="direct")
 
-    async def _demo_cloudflare_wait(self) -> bool:
-        """Demonstrate intelligent Cloudflare waiting"""
+    async def _demo_cloudflare_wait(self, strategy_name: str = "unknown") -> bool:
+        """Demonstrate intelligent Cloudflare waiting
+        1. Initial page analysis (immmediate)
+        2. Challeng type indentification (AI-powered)
+        3. Appropriate waiting behavior selection
+        4. Periodic re-evaluation (configurable intervals)
+        5. Suces confirmation and continuation
+
+        Returns:
+        [bool] indicating if approach was successful
+        """
         print("   Analyzing page for Cloudflare challenge...")
 
         max_wait = self.config.bypass.max_wait_time
@@ -437,11 +479,8 @@ class InterviewReadyNavigator:
             # Take screenshot for documentation
             if total_waited % screenshot_freq == 0:
                 screenshot_path = (
-                    f"{screenshot_prefix}cloudflare_{total_waited}s.{screenshot_format}"
-                )
-                screenshot_path = (
-                    f"2_{screenshot_path}" if os.path.exists(screenshot_path)
-                    else screenshot_path
+                    f"{screenshot_prefix}_{strategy_name}_cloudflare_"
+                    f"{total_waited}s.{screenshot_format}"
                 )
                 await self.page.screenshot(path=screenshot_path)
                 self.screenshots.append(screenshot_path)
@@ -500,7 +539,21 @@ class InterviewReadyNavigator:
             return False
 
     async def _ai_analyze_page_status(self) -> Dict:
-        """Use AI to analyze page status"""
+        """Use AI to analyze page status
+        - Analyzes page content to distinquish between Clouflare challenges
+          and actual website content
+        - Determines if webiste elements are present and accessible
+        - Provides condfidence scores for detection accuracy
+
+         Returns:
+        [dict] with this format:
+            "is_cloudflare_challenge": true/false,
+            "challenge_type": "turnstile|hcaptcha|js_challenge|browser_check|none",
+            "confidence": 0.95,
+            "indicators_found": ["list", "of", "indicators"],
+            "website_elements_present": true/false,
+            "recommendation": "wait|interact|bypass_failed"
+        """
         try:
             title = await self.page.title()
             content_sample = await self.page.evaluate(
@@ -526,7 +579,7 @@ class InterviewReadyNavigator:
                 'type': 'cloudflare_detection',
                 'input': {'title': title, 'url': self.page.url},
                 'output': result,
-                'timestamp': time.time()
+                'timestamp': time.strftime(self.config.general.time_frmt)
             })
 
             return result
@@ -564,7 +617,13 @@ class InterviewReadyNavigator:
             execution_result = await self._execute_ai_action(next_action)
 
             # Take final screenshot
-            final_screenshot = f"ai_navigation_result_{int(time.time())}.png"
+            time_stamp = time.strftime(self.config.general.time_frmt)
+            frmtd_time_stamp = '-'.join(
+                time_stamp.replace('-', '').replace(':', '').split(' ')[:2]
+            )
+            final_screenshot = (
+                f"ai_navigation_result_{frmtd_time_stamp}.png"
+            )
             await self.page.screenshot(path=final_screenshot)
             self.screenshots.append(final_screenshot)
 
@@ -632,7 +691,7 @@ class InterviewReadyNavigator:
                 'type': 'simulation',
                 'scenario': scenario,
                 'decision': ai_decision,
-                'timestamp': time.time()
+                'timestamp': time.strftime(self.config.general.time_frmt)
             })
 
         session_result['technical_achievements'].extend([
@@ -694,9 +753,27 @@ class InterviewReadyNavigator:
             'technical_achievements': len(session_result['technical_achievements'])
         }
 
+        session_result['ai_decisions'] = self.ai_decisions
+
     # AI helper methods
     async def _ai_parse_goal(self, goal: str) -> Dict:
-        """AI-powered goal parsing"""
+        """AI-powered goal parsing.
+        - Takes natural language user goals.
+        - Uses structrued prompts to extract actionble intent.
+        - Parses product keywors, price constraints, and navigation
+          perferences
+
+        Parameters:
+        goal: [str] Natural language user goal (e.g., "Find a cordless
+            drill under $200")
+
+        Return:
+        [dict] with this format:
+            "primary_goal": "main objective",
+            "product_keywords": ["search", "terms"],
+            "action_type": "search|browse|purchase",
+            "preferences": {{"any": "constraints"}}
+        """
         prompt = self.config.prompts.goal_parsing.template.format(goal=goal)
 
         response = await self._query_ai_with_config(
@@ -704,10 +781,33 @@ class InterviewReadyNavigator:
             system_prompt=self.config.prompts.goal_parsing.system,
             task_type='intent_parsing'
         )
-        return json.loads(response)
+
+        result = json.loads(response)
+
+        self.ai_decisions.append({
+            'type': 'goal_parsing',
+            'input': {'goal': goal},
+            'output': result,
+            'timestamp': time.strftime(self.config.general.time_frmt)
+        })
+
+        return result
 
     async def _ai_analyze_current_page(self) -> Dict:
-        """AI-powered page analysis"""
+        """AI-powered page analysis.
+        - Captures page title and content sample (configurable length)
+        - AI Analyzed page type (homepage, search results, product page,
+          cart, checkout)
+        - Identifies kye interactive elements and their purposes
+        - Determines current navigation context and available actions
+
+        Return:
+        [dict] with this format:
+            "page_type": "homepage|search_results|product_page|other",
+            "key_elements": ["search_box", "products", "navigation"],
+            "next_actions": ["possible", "actions"]
+
+        """
         title = await self.page.title()
         content_sample = await self.page.evaluate(
             "document.body.innerText.slice(0, "
@@ -724,10 +824,36 @@ class InterviewReadyNavigator:
             system_prompt=self.config.prompts.page_analysis.system,
             task_type='page_analysis'
         )
-        return json.loads(response)
+
+        result = json.loads(response)
+
+        self.ai_decisions.append({
+            'type': 'page_analysis',
+            'input': {'title': title, 'content_length': len(content_sample)},
+            'output': result,
+            'timestamp': time.strftime(self.config.general.time_frmt)
+        })
+
+        return result
 
     async def _ai_decide_action(self, intent: Dict, page_analysis: Dict) -> Dict:
-        """AI-powered action decision"""
+        """AI-powered action decision
+        - Combines parsed intent with current page analysis
+        - AI evaluates available actions agaainst navigation goal
+        - Selects optimal next action (click, search, scroll, wait)
+        - Provideds reasoning for decision transparency
+
+        Parameters:
+        intent: [dict] output from _ai_parse_goal
+        page_analysis: [dict] output from _ai_analyze_current_page
+
+        Return:
+        [dict] with this format:
+            "action": "search|click|scroll|wait",
+            "target": "specific element or term",
+            "reasoning": "why this action",
+            "confidence": 0.95
+        """
         prompt = self.config.prompts.action_decision.template.format(
             intent=json.dumps(intent),
             page_analysis=json.dumps(page_analysis)
@@ -738,10 +864,37 @@ class InterviewReadyNavigator:
             system_prompt=self.config.prompts.action_decision.system,
             task_type='decision_making'
         )
-        return json.loads(response)
+
+        result = json.loads(response)
+
+        self.ai_decisions.append({
+            'type': 'action_decision',
+            'input': {'intent': intent, 'page_analysis': page_analysis},
+            'output': result,
+            'timestamp': time.strftime(self.config.general.time_frmt)
+        })
+
+        return result
 
     async def _simulate_ai_decision(self, scenario: Dict, goal: str) -> Dict:
-        """Simulate AI decision for demonstration"""
+        """Simulate AI decision for demonstration
+        - When real navigate fails, demonstrates AI decision-making through
+          simulation
+        - Uses predefined scenarios to show decision logic
+        - Maitains same AI reasoning process as real navigation
+
+        Parameters:
+        scenario: [dict] scenarios are defined in config.toml
+            siulation_scenarios.scenarios
+        goal: [str] Natural language user goal (e.g., "Find a cordless
+            drill under $200")
+
+        Returns:
+        [dict] with this format:
+            "action": "specific action",
+            "reasoning": "logical explanation",
+            "expected_outcome": "what happens next"
+        """
         prompt = self.config.prompts.simulation_decision.template.format(
             description=scenario['description'],
             goal=goal,
@@ -756,7 +909,14 @@ class InterviewReadyNavigator:
         return json.loads(response)
 
     async def _execute_ai_action(self, action: Dict) -> str:
-        """Execute AI-recommended action"""
+        """Execute AI-recommended action
+
+        Parameters:
+        action: [dict] output from _decide_ai_action
+
+        Return:
+        [str] status of action performed
+        """
         action_type = action.get('action', 'unknown')
 
         if action_type == 'search':
@@ -767,7 +927,12 @@ class InterviewReadyNavigator:
             return f"Simulated {action_type} action"
 
     async def _execute_search_action(self, action: Dict) -> str:
-        """Execute search action"""
+        """Execute search action
+
+        Paraemters:
+        action:
+
+        """
         try:
             search_selectors = self.config.search_functionality.selectors
 
