@@ -115,14 +115,14 @@ Applying stealth configuration:
    - Spoofing browser fingerprints
    - Randomizing viewport and user agent
    - Injecting human behavior simulation
-Advanced browser setup completed in 1.7s
+Advanced browser setup completed in 3.1s
 
 PHASE 3: Intelligent Cloudflare Bypass
 --------------------------------------------------
 
 Attempting: Gradual Session Building
    Building browsing session gradually...
-   Step 1: Starting with Google Australia...
+   Step 1: Starting with https://www.google.com.au...
    Step 2: Searching for weather (building credibility)...
    Step 3: Visiting Australian government site...
    Step 4: Searching for hardware stores...
@@ -130,34 +130,34 @@ Attempting: Gradual Session Building
    Direct navigation to Bunnings...
    Step 6: Waiting for Cloudflare resolution...
    Analyzing page for Cloudflare challenge...
-2025-06-18 22:13:24 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:13:07 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    0s - Using minimal interaction
-2025-06-18 22:13:43 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:13:29 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    15s - Using minimal interaction
-2025-06-18 22:14:01 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:13:47 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    30s - Using minimal interaction
-2025-06-18 22:14:19 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:14:08 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    45s - Using minimal interaction
-2025-06-18 22:14:39 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:14:29 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    60s - Using reading simulation
-2025-06-18 22:14:58 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:14:48 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    75s - Using reading simulation
-2025-06-18 22:15:16 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:15:09 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    90s - Using reading simulation
-2025-06-18 22:15:35 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:15:31 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    105s - Using reading simulation
-2025-06-18 22:15:55 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:15:52 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    120s - Using mild impatience
-2025-06-18 22:16:13 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:16:12 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    135s - Using mild impatience
 Gradual Session Building timed out after 300 seconds
@@ -167,63 +167,99 @@ Attempting: Multi-Site Credibility
    Step 1: Visiting https://www.mitre10.com.au...
    Step 2: Visiting https://www.supercheapauto.com.au...
    Step 3: Approaching Bunnings...
-Multi-Site Credibility error: Navigation interrupted by another one
-=========================== logs ===========================
-navigating to "https://www.bunnings.com.au", waiting until "load"
-============================================================
-Note: use DEBUG=pw:api environment variable to capture Playwright logs.
+   Analyzing page for Cloudflare challenge...
+2025-06-29 15:17:04 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   0s - Using minimal interaction
+2025-06-29 15:17:25 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   15s - Using minimal interaction
+2025-06-29 15:17:44 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   30s - Using minimal interaction
+2025-06-29 15:18:05 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   45s - Using minimal interaction
+2025-06-29 15:18:25 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   60s - Using reading simulation
+2025-06-29 15:18:44 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   75s - Using reading simulation
+2025-06-29 15:19:03 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   90s - Using reading simulation
+2025-06-29 15:19:23 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   105s - Using reading simulation
+2025-06-29 15:19:42 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   120s - Using mild impatience
+2025-06-29 15:20:03 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   135s - Using mild impatience
+2025-06-29 15:20:24 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   150s - Using mild impatience
+2025-06-29 15:20:44 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   165s - Using mild impatience
+2025-06-29 15:21:05 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   180s - Using moderate activity
+2025-06-29 15:21:25 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   Cloudflare browser_check detected: 'Just a moment...'
+   195s - Using moderate activity
+Multi-Site Credibility timed out after 300 seconds
 
 Attempting: Direct with Patience
    Direct approach with extended patience...
    Analyzing page for Cloudflare challenge...
-2025-06-18 22:17:04 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:21:31 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    0s - Using minimal interaction
-2025-06-18 22:17:23 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:21:52 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    15s - Using minimal interaction
-2025-06-18 22:17:42 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:22:13 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    30s - Using minimal interaction
-2025-06-18 22:18:01 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:22:34 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    45s - Using minimal interaction
-2025-06-18 22:18:19 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:22:54 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    60s - Using reading simulation
-2025-06-18 22:18:37 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:23:14 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    75s - Using reading simulation
-2025-06-18 22:18:58 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:23:35 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    90s - Using reading simulation
-2025-06-18 22:19:18 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:23:54 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    105s - Using reading simulation
-2025-06-18 22:19:37 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:24:15 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    120s - Using mild impatience
-2025-06-18 22:19:57 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:24:35 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    135s - Using mild impatience
-2025-06-18 22:20:18 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:24:54 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    150s - Using mild impatience
-2025-06-18 22:20:36 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:25:14 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    165s - Using mild impatience
-2025-06-18 22:20:56 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:25:35 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    180s - Using moderate activity
-2025-06-18 22:21:16 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:25:56 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    195s - Using moderate activity
-2025-06-18 22:21:37 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-29 15:26:17 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
    Cloudflare browser_check detected: 'Just a moment...'
    210s - Using moderate activity
-2025-06-18 22:21:58 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
-   Cloudflare browser_check detected: 'Just a moment...'
-   225s - Using moderate activity
 Direct with Patience timed out after 300 seconds
 
 All bypass strategies exhausted
@@ -233,23 +269,23 @@ PHASE 4B: AI Navigation Simulation
 Since Cloudflare bypass didn't succeed, demonstrating AI logic through simulation...
 
 Simulation 1: Bunnings homepage with search box
-2025-06-18 22:22:05 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
-   AI Decision: Type 'cordless drill' into the search box and press Enter/Submit - When looking for a specific product type like a cordless drill, using the search box is the most direct and efficient method rather than navigating through category menus. The search term 'cordless drill' is specific enough to return relevant results but not so narrow as to miss potential options. This is particularly effective on hardware store sites like Bunnings where product names are standardized.
+2025-06-29 15:26:30 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   AI Decision: type 'cordless drill' into the main search box - The search box is the quickest and most direct way to find specific products like cordless drills. Using precise search terms will yield relevant results rather than browsing through categories.
 
 Simulation 2: Search results for cordless drill
-2025-06-18 22:22:12 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
-   AI Decision: Review and compare key drill specifications focusing on voltage, battery type, included batteries, torque levels, and user ratings - To find the best cordless drill match, we need to evaluate core features that indicate quality and value. Higher voltage (18V-20V) suggests more power, lithium-ion batteries offer better performance, inclusion of multiple batteries provides convenience, high torque ratings enable versatility, and positive user ratings validate real-world performance. Cross-referencing these factors helps identify the optimal choice.
+2025-06-29 15:26:34 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   AI Decision: scan and filter search results by key criteria: battery voltage, customer ratings (4+ stars), price range ($50-200), and major reputable brands like DeWalt, Milwaukee, or Makita - Need to quickly identify high-quality drills that represent good value by focusing on the most important specs and reliable brands while eliminating low-quality options. Customer ratings help validate real-world performance.
 
 Simulation 3: Specific drill product page
-2025-06-18 22:22:17 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
-   AI Decision: click on 'Add to Cart' button - Since we're already on a specific drill product page and the goal is to add the drill to the cart, the most direct action is to click the 'Add to Cart' button. This is typically prominently displayed on product pages and is the standard way to initiate a purchase. No need for additional product research or comparison since we've already selected the specific drill.
+2025-06-29 15:26:38 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+   AI Decision: click add to cart button - Since we are already on a specific drill product page and the goal is to add a cordless drill to cart, the direct action is to click the add to cart button to fulfill the task
 
 PHASE 5: Results Analysis and Technical Summary
 --------------------------------------------------
-Total session duration: 652.2s
-Bypass attempts made: 2
-AI decisions made: 29
-Screenshots captured: 4
+Total session duration: 914.1s
+Bypass attempts made: 3
+AI decisions made: 42
+Screenshots captured: 6
 
 Technical Achievements:
    Externalized all configuration to TOML for easy modification
@@ -281,6 +317,7 @@ Session summary saved to interview_session_summary.json
 INTERVIEW DEMONSTRATION COMPLETE
 ================================================================================
 DEMONSTRATION SUCCESSFUL
+DEMONSTRATION SUCCESSFUL
 
 Key Achievements:
   Externalized all configuration to TOML for easy modification
@@ -292,6 +329,12 @@ Key Achievements:
 Files Generated:
   interview_session.log
   interview_session_summary.json
+  demo__gradual_cloudflare_0s.png
+  demo__gradual_cloudflare_120s.png
+  demo__multisite_cloudflare_0s.png
+  demo__multisite_cloudflare_120s.png
+  demo__direct_cloudflare_0s.png
+  demo__direct_cloudflare_120s.png
 ```
 
 ## Session Summary Json
