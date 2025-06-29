@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import argparse
-import asyncio
 from dotenv import load_dotenv
 import os
 
@@ -90,6 +88,10 @@ async def main(config_file_path: str):
 
 
 if __name__ == '__main__':
+    import argparse
+    import asyncio
+    import json
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '-c',
@@ -101,4 +103,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     config_file_path = args.configfile
 
-    asyncio.run(main(config_file_path=config_file_path))
+    result = asyncio.run(main(config_file_path=config_file_path))
+
+    with open('session_results.json', 'w') as f:
+        json.dump(result, f, indent=2, default=str)
