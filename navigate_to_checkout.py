@@ -92,6 +92,8 @@ if __name__ == '__main__':
     import asyncio
     import json
 
+    from bunnings.config import load_config
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '-c',
@@ -105,5 +107,6 @@ if __name__ == '__main__':
 
     result = asyncio.run(main(config_file_path=config_file_path))
 
-    with open('session_results.json', 'w') as f:
+    config = load_config(config_file_path)
+    with open(config.files.results_filename, 'w') as f:
         json.dump(result, f, indent=2, default=str)

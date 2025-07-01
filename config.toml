@@ -36,6 +36,7 @@ results_analysis = 60
 [files]
 log_filename = "interview_session.log"
 summary_filename = "interview_session_summary.json"
+results_filename = "session_results.json"
 screenshot_prefix = "demo_"
 screenshot_format = "png"
 
