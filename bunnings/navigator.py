@@ -420,7 +420,7 @@ class InterviewReadyNavigator:
         demo_min = human_delays_cfg.search_results_interaction_min
         demo_max = human_delays_cfg.demo_behavior_max
 
-        for i, site in enumerate(competitor_sites[:2], 1):
+        for i, site in enumerate(competitor_sites, 1):
             try:
                 print(f"   Step {i}: Visiting {site}...")
                 await self.page.goto(site, timeout=default_timeout)
@@ -1145,35 +1145,37 @@ class InterviewReadyNavigator:
         """Demonstrate adaptive behavior based on patience level"""
         # Safe config access with fallbacks
         patience_cfg = self.config.cloudflare_detection.patience_levels
-        level_0_mouse = patience_cfg.level_0.mouse_movement
-        level_1_scroll = patience_cfg.level_1.scroll_probability
-        thinking_pauses = self.config.human_behavior.timing.thinking_pauses
 
         if patience_level == 0:
             # Minimal
-            if random.random() < level_0_mouse:
+            if random.random() < patience_cfg.level_0.mouse_movement:
                 await self.page.mouse.move(
                     random.randint(400, 600),
                     random.randint(300, 500)
                 )
+
         elif patience_level <= 2:
             # Reading behavior
-            if random.random() < level_1_scroll:
+            if random.random() < patience_cfg.level_1.scroll_probability:
                 scroll_amount = random.randint(-50, 100)
                 await self.page.evaluate(f"window.scrollBy(0, {scroll_amount})")
+
         else:
             # More active
             action = random.choice(['scroll', 'move', 'key'])
             if action == 'scroll':
                 await self.page.evaluate("window.scrollBy(0, 100)")
+
             elif action == 'move':
                 await self.page.mouse.move(
                     random.randint(200, 800),
                     random.randint(200, 600)
                 )
+
             elif action == 'key':
                 await self.page.keyboard.press('Tab')
 
+        thinking_pauses = self.config.human_behavior.timing.thinking_pauses
         await asyncio.sleep(random.uniform(thinking_pauses[0], thinking_pauses[1]))
 
     async def cleanup(self):
