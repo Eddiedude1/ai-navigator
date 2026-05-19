@@ -17,6 +17,15 @@ from bunnings.browser import BrowserManager
 from bunnings.bypass import BypassOrchestrator
 
 
+def _suppress_playwright_timeout_futures(loop, context):
+    """Suppress spurious 'Future exception was never retrieved' from Playwright futures
+    that are orphaned when asyncio.wait_for cancels a strategy mid-selector-wait."""
+    exc = context.get('exception')
+    if exc is not None and type(exc).__name__ == 'TimeoutError':
+        return
+    loop.default_exception_handler(context)
+
+
 class Navigator:
     """Orchestrates browser setup, bypass strategies, and AI-driven navigation."""
 
@@ -57,6 +66,9 @@ class Navigator:
 
     async def run(self, goal: str) -> Dict:
         """Run the full navigation session across 5 phases."""
+        loop = asyncio.get_running_loop()
+        loop.set_exception_handler(_suppress_playwright_timeout_futures)
+
         print("\n" + "=" * 80)
         print("AI-DRIVEN WEB NAVIGATOR")
         print("=" * 80)
@@ -394,6 +406,8 @@ class Navigator:
                             self.config.search_functionality.results_wait / 1000
                         )
                         return f"Successfully searched for '{search_term}'"
+                except asyncio.CancelledError:
+                    raise
                 except Exception:
                     continue
             return "Search box not found"

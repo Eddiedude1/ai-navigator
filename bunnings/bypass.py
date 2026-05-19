@@ -106,6 +106,7 @@ class BypassOrchestrator:
         entry_point = random.choice(session_cfg.entry_points)
         print(f"   Step 1: Starting with {entry_point}...")
         await self.page.goto(entry_point, timeout=self.config.browser.default_timeout)
+        await self._dismiss_cookie_dialog()
         await self._human_pause(
             human_delay_cfg.demo_behavior_min,
             human_delay_cfg.demo_behavior_max
@@ -122,6 +123,7 @@ class BypassOrchestrator:
         print("   Step 3: Visiting Australian government site...")
         credible_site = random.choice(session_cfg.credibility_sites)
         await self.page.goto(credible_site, timeout=self.config.browser.default_timeout)
+        await self._dismiss_cookie_dialog()
         await self._human_pause(
             human_delay_cfg.search_results_interaction_min,
             human_delay_cfg.search_results_interaction_max
@@ -133,6 +135,7 @@ class BypassOrchestrator:
             session_cfg.entry_points[0]
         )
         await self.page.goto(google_url, timeout=self.config.browser.default_timeout)
+        await self._dismiss_cookie_dialog()
         hardware_term = random.choice(session_cfg.search_terms.hardware_related)
         await self._realistic_search(hardware_term)
         await self._human_pause(
@@ -144,7 +147,7 @@ class BypassOrchestrator:
         try:
             bunnings_link = await self.page.wait_for_selector(
                 elements_cfg.bunnings_link_selector,
-                elements_cfg.bunnings_link_timeout
+                timeout=elements_cfg.bunnings_link_timeout
             )
             if bunnings_link:
                 print("   Found Bunnings link, clicking...")
@@ -318,6 +321,24 @@ class BypassOrchestrator:
         """Sleep for a random duration to simulate human reading/thinking time."""
         await asyncio.sleep(random.uniform(min_time, max_time))
 
+    async def _dismiss_cookie_dialog(self) -> bool:
+        """Click a cookie/consent accept button if one is present on the page."""
+        for selector in self.config.cookie_selectors.buttons:
+            try:
+                btn = await self.page.wait_for_selector(
+                    selector,
+                    timeout=self.config.cookie_selectors.timeout
+                )
+                if btn:
+                    await btn.click()
+                    await asyncio.sleep(0.5)
+                    return True
+            except asyncio.CancelledError:
+                raise
+            except Exception:
+                continue
+        return False
+
     async def _realistic_search(self, query: str):
         """Type and submit a search query in the page's search box."""
         try:
@@ -345,7 +366,11 @@ class BypassOrchestrator:
                             self.config.search_functionality.results_wait / 1000
                         )
                         break
+                except asyncio.CancelledError:
+                    raise
                 except Exception:
                     continue
+        except asyncio.CancelledError:
+            raise
         except Exception:
             pass

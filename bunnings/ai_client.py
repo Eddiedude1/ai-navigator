@@ -40,7 +40,7 @@ class AIClient:
             system_prompt=self.config.prompts.cloudflare_detection.system,
             task_type='cloudflare_detection'
         )
-        return json.loads(response)
+        return self._parse_json(response)
 
     async def parse_goal(self, goal: str) -> Dict:
         """Extract structured intent from a natural language navigation goal.
@@ -53,7 +53,7 @@ class AIClient:
             system_prompt=self.config.prompts.goal_parsing.system,
             task_type='intent_parsing'
         )
-        return json.loads(response)
+        return self._parse_json(response)
 
     async def analyze_page(self, title: str, content: str) -> Dict:
         """Identify current page type and key interactive elements.
@@ -69,7 +69,7 @@ class AIClient:
             system_prompt=self.config.prompts.page_analysis.system,
             task_type='page_analysis'
         )
-        return json.loads(response)
+        return self._parse_json(response)
 
     async def decide_action(self, intent: Dict, page_analysis: Dict) -> Dict:
         """Select the next navigation action given goal intent and page state.
@@ -85,7 +85,7 @@ class AIClient:
             system_prompt=self.config.prompts.action_decision.system,
             task_type='decision_making'
         )
-        return json.loads(response)
+        return self._parse_json(response)
 
     async def simulate_scenario(self, scenario: Dict, goal: str) -> Dict:
         """Produce an AI decision for a hypothetical page scenario.
@@ -102,7 +102,23 @@ class AIClient:
             system_prompt=self.config.prompts.simulation_decision.system,
             task_type='decision_making'
         )
-        return json.loads(response)
+        return self._parse_json(response)
+
+    def _parse_json(self, response: str) -> Dict:
+        """Parse a JSON string returned by the AI, handling markdown code blocks."""
+        stripped = response.strip()
+        if stripped.startswith('```'):
+            lines = stripped.split('\n')
+            end = next(
+                (i for i in range(len(lines) - 1, 0, -1) if lines[i].strip() == '```'),
+                len(lines)
+            )
+            stripped = '\n'.join(lines[1:end]).strip()
+        try:
+            return json.loads(stripped)
+        except json.JSONDecodeError as e:
+            self.logger.warning(f"Non-JSON AI response ({e}): {response[:200]}")
+            return {"error": "parse_failed"}
 
     async def _query_ai(
         self,
