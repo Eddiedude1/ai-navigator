@@ -5,7 +5,7 @@
 [general]
 name = "AI Navigator 2025"
 version = "3.0.0"
-start_url = "https://www.bunnings.com.au"
+start_url = "https://www.homedepot.com/"
 max_navigation_steps = 25
 goal = "Find a cordless drill and add it to the cart"
 time_frmt = "%Y-%m-%d %H:%M:%S %Z"
@@ -64,7 +64,7 @@ names = [
     "Multi-Site Credibility", 
     "Direct with Patience"
 ]
-timeout_per_strategy = 60
+timeout_per_strategy = 120
 
 # Enhanced stealth configuration
 [bypass.stealth]
@@ -322,6 +322,7 @@ buttons = [
     '#L2AGLb'
 ]
 timeout = 3000
+check_timeout = 500
 
 # AI configuration with enhanced models
 [ai]

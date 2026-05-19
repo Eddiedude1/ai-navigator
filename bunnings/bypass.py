@@ -327,7 +327,7 @@ class BypassOrchestrator:
             try:
                 btn = await self.page.wait_for_selector(
                     selector,
-                    timeout=self.config.cookie_selectors.timeout
+                    timeout=self.config.cookie_selectors.check_timeout
                 )
                 if btn:
                     await btn.click()
