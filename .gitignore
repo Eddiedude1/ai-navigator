@@ -10,3 +10,5 @@ py-*
 .env
 
 !AI-Navigator-Architecture.png
+*.swp
+main.py

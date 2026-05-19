@@ -2,7 +2,7 @@
 from dotenv import load_dotenv
 import os
 
-from bunnings.navigator import AINavigator
+from bunnings.navigator import Navigator
 
 
 async def main(config_file_path: str):
@@ -17,43 +17,34 @@ async def main(config_file_path: str):
         print("Please set ANTHROPIC_API_KEY environment variable")
         return
 
-    navigator = AINavigator(
+    navigator = Navigator(
         config_path=config_file_path,
         anthropic_api_key=api_key
     )
 
     goal = navigator.config.general.goal
 
-    print("Starting Interview Demonstration...")
+    print("Starting navigation...")
     print(f"Goal: {goal}")
 
-    result = await navigator.demonstrate_complete_solution(goal)
+    result = await navigator.run(goal)
 
-    # Final summary
-    print("\n" + "="*80)
-    print("INTERVIEW DEMONSTRATION COMPLETE")
-    print("="*80)
+    print("\n" + "=" * 80)
+    print("NAVIGATION COMPLETE")
+    print("=" * 80)
 
-    if result and result.get('final_result', {}).get('success'):
-        print("DEMONSTRATION SUCCESSFUL")
-    else:
-        print("DEMONSTRATION COMPLETED (with simulation fallback)")
-
-    # Safe access to result properties
     if result is None:
-        print("DEMONSTRATION FAILED - No result returned")
+        print("NAVIGATION FAILED - No result returned")
         return None
 
-    # Check success status safely
     final_result = result.get('final_result', {})
     if final_result and final_result.get('success', False):
-        print("DEMONSTRATION SUCCESSFUL")
+        print("NAVIGATION SUCCESSFUL")
     else:
-        print("DEMONSTRATION COMPLETED (with simulation fallback)")
+        print("NAVIGATION COMPLETED (with simulation fallback)")
         if 'error' in result:
             print(f"Error encountered: {result['error']}")
 
-    # Display achievements safely
     achievements = result.get('technical_achievements', [])
     if achievements:
         print("\nKey Achievements:")
@@ -62,7 +53,6 @@ async def main(config_file_path: str):
     else:
         print("\nNo technical achievements recorded")
 
-    # Display generated files safely
     try:
         print("\nFiles Generated:")
         log_filename = navigator.config.files.log_filename
@@ -70,7 +60,6 @@ async def main(config_file_path: str):
         print(f"  {log_filename}")
         print(f"  {summary_filename}")
 
-        # Check for screenshots safely
         if final_result and 'screenshots' in final_result:
             screenshots = final_result.get('screenshots', [])
             for screenshot in screenshots:

@@ -89,14 +89,14 @@ ANTHROPIC_API_KEY=...
 
 ## Navigator Execution Report
 ```
-(py-tricentis) $ ./navigate_to_checkout.py 
-Interview-Ready Navigator initialized
+(py-navigator) $ ./navigate_to_checkout.py 
+Navigator initialized
 Demo mode: OFF
-Starting Interview Demonstration...
+Starting navigation...
 Goal: Find a cordless drill and add it to the cart
 
 ================================================================================
-INTERVIEW DEMONSTRATION: AI-DRIVEN WEB NAVIGATOR
+AI-DRIVEN WEB NAVIGATOR
 ================================================================================
 
 PHASE 1: Configuration-Driven Architecture
@@ -311,13 +311,12 @@ Code Quality Features:
    Type hints throughout
    Detailed logging and monitoring
 
-Session summary saved to interview_session_summary.json
+Session summary saved to session_summary.json
 
 ================================================================================
-INTERVIEW DEMONSTRATION COMPLETE
+NAVIGATION COMPLETE
 ================================================================================
-DEMONSTRATION SUCCESSFUL
-DEMONSTRATION SUCCESSFUL
+NAVIGATION SUCCESSFUL
 
 Key Achievements:
   Externalized all configuration to TOML for easy modification
@@ -327,8 +326,8 @@ Key Achievements:
   Illustrated goal-oriented action planning
 
 Files Generated:
-  interview_session.log
-  interview_session_summary.json
+  session.log
+  session_summary.json
   demo__gradual_cloudflare_0s.png
   demo__gradual_cloudflare_120s.png
   demo__multisite_cloudflare_0s.png
