@@ -93,36 +93,35 @@ user_behavior_simulation = "advanced"
 # Session building configuration
 [session_building]
 entry_points = [
-    "https://www.google.com.au",
+    "https://www.google.com",
     "https://www.bing.com",
     "https://www.duckduckgo.com"
 ]
 
 credibility_sites = [
-    "https://www.bom.gov.au",
-    "https://www.abc.net.au",
-    "https://www.australia.gov.au"
+    "https://www.twc.texas.gov/",
+    "https://www.healthcare.gov/",
 ]
 
 competitor_sites = [
-    "https://www.mitre10.com.au",
-    "https://www.supercheapauto.com.au"
+    "https://www.lowes.com/",
+    "https://www.acehardware.com/"
 ]
 
 [session_building.search_terms]
 unrelated = [
-    "weather sydney", 
-    "news australia", 
-    "melbourne coffee shops",
-    "australian government services"
+    "weather austin", 
+    "news austin", 
+    "austin coffee shops",
+    "austin government services"
 ]
 hardware_related = [
-    "home improvement sydney", 
-    "hardware store melbourne", 
-    "bunnings warehouse"
+    "home improvement austin", 
+    "hardware store austin", 
+    "The Home Depot"
 ]
 specific = [
-    "bunnings cordless drill"
+    "cordless drill"
 ]
 
 # Browser fingerprint evasion
@@ -296,19 +295,29 @@ post_click_max = 2.0
 # Search functionality configuration
 [search_functionality]
 selectors = [
-    'input[name="q"]',
+    '#typeahead-search-field',
+    'input[id="typeahead-search-field"]',
     'input[type="search"]',
-    'input[placeholder*="search"]',
+    'input[placeholder*="search" i]',
+    'input[name="q"]',
     '#search-input'
 ]
 timeout = 10000
 typing_delay = 150
 submit_delay = 1000
 results_wait = 2000
+search_url_template = "https://www.homedepot.com/s/{query}"
+error_indicators = [
+    "something went wrong",
+    "oops",
+    "try again",
+    "error occurred",
+    "page not found"
+]
 
 # Element interaction settings
 [element_interaction]
-bunnings_link_selector = 'a[href*="bunnings.com.au"]'
+bunnings_link_selector = 'a[href*="homedepot.com"]'
 bunnings_link_timeout = 15000
 click_box_variance = 0.4
 click_box_offset = 0.3

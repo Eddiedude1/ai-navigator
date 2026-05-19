@@ -379,7 +379,11 @@ class Navigator:
             return f"Simulated {action_type} action"
 
     async def _execute_search(self, action: Dict) -> str:
-        """Type and submit a search query in the page's search box."""
+        """Type and submit a search query in the page's search box.
+
+        Falls back to direct URL navigation if the result page shows an error.
+        """
+        search_term = action.get('target', self.config.general.goal)
         try:
             search_selectors = self.config.search_functionality.selectors
             for selector in search_selectors:
@@ -389,7 +393,6 @@ class Navigator:
                         timeout=self.config.search_functionality.timeout
                     )
                     if search_box:
-                        search_term = action.get('target', self.config.general.goal)
                         await search_box.click()
                         await asyncio.sleep(
                             self.config.search_functionality.submit_delay / 1000
@@ -405,14 +408,47 @@ class Navigator:
                         await asyncio.sleep(
                             self.config.search_functionality.results_wait / 1000
                         )
+
+                        if await self._is_error_page():
+                            self.logger.warning(
+                                "Search form returned error page — trying direct URL"
+                            )
+                            return await self._search_via_url(search_term)
+
                         return f"Successfully searched for '{search_term}'"
                 except asyncio.CancelledError:
                     raise
                 except Exception:
                     continue
-            return "Search box not found"
+
+            return await self._search_via_url(search_term)
         except Exception as e:
             return f"Search failed: {e}"
+
+    async def _is_error_page(self) -> bool:
+        """Return True if the current page content matches known error indicators."""
+        try:
+            content = await self.page.evaluate(
+                "document.body.innerText.slice(0, 500).toLowerCase()"
+            )
+            return any(
+                indicator in content
+                for indicator in self.config.search_functionality.error_indicators
+            )
+        except Exception:
+            return False
+
+    async def _search_via_url(self, search_term: str) -> str:
+        """Navigate directly to the search results URL, bypassing the search form."""
+        try:
+            url = self.config.search_functionality.search_url_template.format(
+                query=search_term.replace(' ', '+')
+            )
+            await self.page.goto(url, timeout=self.config.browser.default_timeout)
+            await asyncio.sleep(self.config.search_functionality.results_wait / 1000)
+            return f"Navigated directly to search results for '{search_term}'"
+        except Exception as e:
+            return f"Direct search URL failed: {e}"
 
     async def _execute_click(self, action: Dict) -> str:
         """Click a page element identified by CSS selector."""
