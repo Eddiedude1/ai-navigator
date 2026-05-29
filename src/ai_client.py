@@ -8,7 +8,7 @@ from typing import Dict
 
 import anthropic
 
-from bunnings.config import Config
+from src.config import Config
 
 
 class AIClient:

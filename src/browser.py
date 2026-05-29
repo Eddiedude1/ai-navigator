@@ -8,7 +8,7 @@ from typing import Dict, List, Tuple
 from playwright.async_api import async_playwright, Browser, BrowserContext, Page
 from playwright_stealth import Stealth
 
-from bunnings.config import Config
+from src.config import Config
 
 
 class BrowserManager:
@@ -39,8 +39,8 @@ class BrowserManager:
         context_options = {
             'viewport': viewport,
             'user_agent': user_agent,
-            'locale': 'en-AU',
-            'timezone_id': 'Australia/Sydney',
+            'locale': self.config.browser.locale,
+            'timezone_id': self.config.browser.timezone_id,
             'geolocation': {
                 'latitude': (
                     browser_geo_cfg.latitude_base

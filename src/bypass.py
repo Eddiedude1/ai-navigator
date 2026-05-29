@@ -9,8 +9,8 @@ from typing import Dict, List, Tuple
 
 from playwright.async_api import Page
 
-from bunnings.ai_client import AIClient
-from bunnings.config import Config
+from src.ai_client import AIClient
+from src.config import Config
 
 
 class BypassOrchestrator:
@@ -92,7 +92,7 @@ class BypassOrchestrator:
 
         1. Start from a neutral entry point
         2. Perform an unrelated search to establish browsing history
-        3. Visit a credible Australian government site
+        3. Visit a credible US government site
         4. Search for hardware-related terms
         5. Locate target via search results
         6. Wait for Cloudflare resolution
@@ -120,7 +120,7 @@ class BypassOrchestrator:
             human_delay_cfg.demo_behavior_max
         )
 
-        print("   Step 3: Visiting Australian government site...")
+        print("   Step 3: Visiting credible US government site...")
         credible_site = random.choice(session_cfg.credibility_sites)
         await self.page.goto(credible_site, timeout=self.config.browser.default_timeout)
         await self._dismiss_cookie_dialog()
@@ -143,15 +143,15 @@ class BypassOrchestrator:
             human_delay_cfg.demo_behavior_max
         )
 
-        print("   Step 5: Looking for Bunnings in search results...")
+        print("   Step 5: Looking for Home Depot in search results...")
         try:
-            bunnings_link = await self.page.wait_for_selector(
+            target_link = await self.page.wait_for_selector(
                 elements_cfg.bunnings_link_selector,
                 timeout=elements_cfg.bunnings_link_timeout
             )
-            if bunnings_link:
-                print("   Found Bunnings link, clicking...")
-                await bunnings_link.click()
+            if target_link:
+                print("   Found Home Depot link, clicking...")
+                await target_link.click()
             else:
                 print("   No link found, navigating directly...")
                 await self.page.goto(
@@ -159,7 +159,7 @@ class BypassOrchestrator:
                     timeout=self.config.browser.default_timeout
                 )
         except Exception:
-            print("   Direct navigation to Bunnings...")
+            print("   Direct navigation to Home Depot...")
             await self.page.goto(
                 general_cfg.start_url,
                 timeout=self.config.browser.default_timeout
@@ -192,7 +192,7 @@ class BypassOrchestrator:
                 print(f"   Couldn't reach {site}: {e}")
                 continue
 
-        print(f"   Step {len(competitor_sites) + 1}: Approaching Bunnings...")
+        print(f"   Step {len(competitor_sites) + 1}: Approaching Home Depot...")
         await self.page.goto(self.config.general.start_url, timeout=default_timeout)
         return await self._cloudflare_wait(strategy_name="multisite")
 

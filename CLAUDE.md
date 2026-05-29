@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-AI Navigator is a Python POC that uses the Anthropic API to autonomously navigate bunnings.com.au, find a product, and add it to the cart. It combines AI-driven decision-making with browser automation (Playwright + stealth techniques) to handle Cloudflare protection.
+AI Navigator is a Python POC that uses the Anthropic API to autonomously navigate homedepot.com, find a product, and add it to the cart. It combines AI-driven decision-making with browser automation (Playwright + stealth techniques) to handle Cloudflare protection.
 
 - **Python version:** 3.13
 - **OS:** Unix only
@@ -50,7 +50,7 @@ echo "ANTHROPIC_API_KEY=your_key_here" > .env
 
 ```
 navigate_to_checkout.py   ← Entry point: parses args, loads config, runs async main
-bunnings/
+src/
   config.py               ← Config loader: reads config.toml into a dot-access Config object
   browser.py              ← BrowserManager: Playwright launch, stealth setup, teardown
   ai_client.py            ← AIClient: all Anthropic API calls, returns raw dicts
@@ -61,7 +61,7 @@ config.toml               ← All runtime settings — no hardcoded values in Py
 
 ### Data Flow
 
-1. `navigate_to_checkout.py` loads `.env`, reads `config.toml` via `bunnings/config.py`, and instantiates `AINavigator`
+1. `navigate_to_checkout.py` loads `.env`, reads `config.toml` via `src/config.py`, and instantiates `AINavigator`
 2. `AINavigator.run(goal)` orchestrates 5 phases:
    - **Phase 1:** Config display via `_setup_phase`
    - **Phase 2:** `BrowserManager.setup_browser()` → returns `(browser, context, page)`; `BypassOrchestrator` is created with the live page

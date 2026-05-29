@@ -11,18 +11,21 @@ from typing import Dict, List
 
 import anthropic
 
-from bunnings import config as config_module
-from bunnings.ai_client import AIClient
-from bunnings.browser import BrowserManager
-from bunnings.bypass import BypassOrchestrator
+from src import config as config_module
+from src.ai_client import AIClient
+from src.browser import BrowserManager
+from src.bypass import BypassOrchestrator
 
 
 def _suppress_playwright_timeout_futures(loop, context):
     """Suppress spurious 'Future exception was never retrieved' from Playwright futures
-    that are orphaned when asyncio.wait_for cancels a strategy mid-selector-wait."""
+    orphaned when asyncio.wait_for cancels a strategy mid-navigation or mid-selector-wait."""
     exc = context.get('exception')
-    if exc is not None and type(exc).__name__ == 'TimeoutError':
-        return
+    if exc is not None:
+        exc_type = type(exc).__name__
+        exc_module = type(exc).__module__
+        if 'playwright' in exc_module and exc_type in ('TimeoutError', 'Error'):
+            return
     loop.default_exception_handler(context)
 
 
@@ -242,6 +245,9 @@ class Navigator:
                 f"{next_action.get('reasoning', 'N/A')}"
             )
 
+            print("Step 3.5: Warming up on target site before acting...")
+            await self._warm_up_page()
+
             print("Step 4: Executing AI-recommended action...")
             execution_result = await self._execute_action(next_action)
 
@@ -378,6 +384,79 @@ class Navigator:
         else:
             return f"Simulated {action_type} action"
 
+    async def _warm_up_page(self):
+        """Simulate human browsing on the current page before taking a goal action.
+
+        Home Depot (and similar sites) use session-level bot detection — navigating
+        directly to a search without prior on-site activity triggers it. Scrolling
+        alone is not enough; we must click into a real category page before the
+        session is trusted enough to run a search.
+        """
+        try:
+            warm_up_cfg = self.config.navigation.warm_up
+            scroll_steps = warm_up_cfg.scroll_steps
+            pause = warm_up_cfg.pause_between_scrolls
+
+            for i in range(scroll_steps):
+                scroll_amount = (i + 1) * warm_up_cfg.scroll_pixels
+                await self.page.evaluate(f"window.scrollBy(0, {scroll_amount})")
+                await asyncio.sleep(pause)
+                await self.page.mouse.move(
+                    400 + i * 80,
+                    300 + i * 50
+                )
+                await asyncio.sleep(pause / 2)
+
+            await self.page.evaluate("window.scrollTo(0, 0)")
+            await asyncio.sleep(warm_up_cfg.final_pause)
+
+            if getattr(warm_up_cfg, 'pre_search_browse', False):
+                await self._browse_category_before_search(warm_up_cfg)
+
+            print(f"   Warm-up complete ({scroll_steps} scroll steps)")
+        except Exception as e:
+            self.logger.warning(f"Warm-up skipped: {e}")
+
+    async def _browse_category_before_search(self, warm_up_cfg) -> None:
+        """Navigate to a department URL and scroll briefly to legitimise the session.
+
+        Using goto() avoids the visibility requirement that makes hover/click
+        block for the full 120s default timeout when a nav element is hidden.
+        The header search box is present on every page, so the search step
+        can proceed from here without navigating back to the homepage.
+        """
+        browse_url = getattr(warm_up_cfg, 'pre_search_browse_url', None)
+        if not browse_url:
+            self.logger.warning("pre_search_browse_url not configured — skipping")
+            return
+        try:
+            timeout = getattr(warm_up_cfg, 'pre_search_browse_timeout', 15000)
+            await self.page.goto(
+                browse_url, wait_until='domcontentloaded', timeout=timeout
+            )
+            await asyncio.sleep(warm_up_cfg.pre_search_browse_wait)
+
+            if await self._is_error_page():
+                self.logger.warning("Browse URL returned error page — returning to homepage")
+                await self.page.goto(
+                    self.config.general.start_url,
+                    wait_until='domcontentloaded',
+                    timeout=timeout
+                )
+                await asyncio.sleep(2.0)
+                return
+
+            for i in range(warm_up_cfg.pre_search_browse_scrolls):
+                await self.page.evaluate(f"window.scrollBy(0, {(i + 1) * 300})")
+                await asyncio.sleep(1.5)
+                await self.page.mouse.move(500 + i * 60, 400 + i * 40)
+
+            await self.page.evaluate("window.scrollTo(0, 0)")
+            await asyncio.sleep(1.5)
+            print("   Pre-search category browse complete")
+        except Exception as e:
+            self.logger.warning(f"Pre-search browse skipped: {e}")
+
     async def _execute_search(self, action: Dict) -> str:
         """Type and submit a search query in the page's search box.
 
@@ -444,10 +523,17 @@ class Navigator:
             url = self.config.search_functionality.search_url_template.format(
                 query=search_term.replace(' ', '+')
             )
+            self.logger.info(f"Direct search URL: {url}")
             await self.page.goto(url, timeout=self.config.browser.default_timeout)
             await asyncio.sleep(self.config.search_functionality.results_wait / 1000)
+
+            if await self._is_error_page():
+                self.logger.warning("Direct search URL also returned error page")
+                return f"Direct search blocked for '{search_term}'"
+
             return f"Navigated directly to search results for '{search_term}'"
         except Exception as e:
+            self.logger.error(f"Direct search URL failed: {e}")
             return f"Direct search URL failed: {e}"
 
     async def _execute_click(self, action: Dict) -> str:

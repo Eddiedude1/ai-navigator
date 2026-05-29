@@ -10,6 +10,17 @@ max_navigation_steps = 25
 goal = "Find a cordless drill and add it to the cart"
 time_frmt = "%Y-%m-%d %H:%M:%S %Z"
 
+[navigation.warm_up]
+scroll_steps = 4
+scroll_pixels = 200
+pause_between_scrolls = 1.5
+final_pause = 2.0
+pre_search_browse = true
+pre_search_browse_url = "https://www.homedepot.com/b/Tools-Power-Tools/N-5yc1vZc1xy"
+pre_search_browse_wait = 4.0
+pre_search_browse_scrolls = 3
+pre_search_browse_timeout = 15000
+
 [logging]
 filename = "navigator_app.log"
 format = "%(asctime)s - %(levelname)s - %(message)s"
@@ -87,7 +98,7 @@ impatience_progression = true
 [bypass.session_building]
 google_entry_required = true
 credibility_sites_count = 2
-search_progression = ["weather", "news", "hardware", "bunnings"]
+search_progression = ["weather", "news", "hardware", "home depot"]
 user_behavior_simulation = "advanced"
 
 # Session building configuration
@@ -133,6 +144,8 @@ viewport_randomization = true
 user_agent_rotation = true
 permissions_spoofing = true
 default_timeout = 120000
+locale = "en-US"
+timezone_id = "America/Chicago"
 
 [browser.viewport]
 width_min = 1366
@@ -195,7 +208,7 @@ template = "Mozilla/5.0 ({os}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{ve
 # HTTP headers configuration
 [browser.headers]
 accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
-accept_language = "en-AU,en;q=0.9,en-US;q=0.8"
+accept_language = "en-US,en;q=0.9"
 accept_encoding = "gzip, deflate, br"
 cache_control = "max-age=0"
 upgrade_insecure_requests = "1"
@@ -206,8 +219,8 @@ sec_fetch_user = "?1"
 
 # Geolocation settings
 [browser.geolocation]
-latitude_base = -33.8688
-longitude_base = 151.2093
+latitude_base = 30.2672
+longitude_base = -97.7431
 variance = 0.05
 
 # Cloudflare detection patterns (2025 updated)
@@ -306,7 +319,7 @@ timeout = 10000
 typing_delay = 150
 submit_delay = 1000
 results_wait = 2000
-search_url_template = "https://www.homedepot.com/s/{query}"
+search_url_template = "https://www.homedepot.com/b/Tools-Power-Tools-Drills/Cordless/N-5yc1vZc27fZ1z140i3?searchRedirect={query}"
 error_indicators = [
     "something went wrong",
     "oops",
@@ -393,9 +406,9 @@ Current Page Analysis:
 - Navigation History: {history}
 
 User Context:
-- Australian user looking for hardware/tools
+- US user looking for hardware/tools
 - Prefers efficient but natural browsing
-- Familiar with Bunnings website layout
+- Familiar with Home Depot website layout
 
 Choose the BEST next action and respond with ONLY valid JSON:
 {{
@@ -475,7 +488,7 @@ What would an intelligent AI navigator do?  Respond with ONLY valid JSON
 
 [[simulation_scenarios.scenarios]]
 page_type = "homepage"
-description = "Bunnings homepage with search box"
+description = "Home Depot homepage with search box"
 ai_task = "Find and use search functionality"
 
 [[simulation_scenarios.scenarios]]

@@ -2,7 +2,7 @@
 from dotenv import load_dotenv
 import os
 
-from bunnings.navigator import Navigator
+from src.navigator import Navigator
 
 
 async def main(config_file_path: str):
@@ -81,7 +81,7 @@ if __name__ == '__main__':
     import asyncio
     import json
 
-    from bunnings.config import load_config
+    from src.config import load_config
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
